@@ -160,6 +160,17 @@ function charBlock(ctx, name, o) {
     rows: o.rows ? rowsOf(ctx, (bag && bag.items) || [], 'bag', grades, C.maxEnchant).concat(whClan ? [] : rowsOf(ctx, whRows, 'wh', grades, C.maxEnchant)) : undefined
   };
 }
+// ENGINECHECK-2026-11-09 (SwarmHive 1.14.0 replaced swarm.js: the SUPPLY change that reads gear_suppliers.json was gone): does the RUNNING
+// swarm.js (Scripts/swarm.js) read this list at all? -> { reads, version, dist: upstream gear_sources.json distributors.names }; cached by mtime
+let ENG = { sig: '', v: null };
+function engine(ctx) {
+  const f = path.join(ctx.ROOT, 'Scripts', 'swarm.js'); let sig = '';
+  try { const st = fs.statSync(f); sig = st.mtimeMs + ':' + st.size; } catch (e) { return { reads: null, version: '', dist: [] }; }
+  if (!ENG.v || ENG.sig !== sig) { let t = ''; try { t = fs.readFileSync(f, 'utf8'); } catch (e) { } ENG = { sig, v: { reads: t ? t.includes('gear_suppliers.json') : null } }; }
+  let version = ''; try { version = fs.readFileSync(path.join(ctx.ROOT, 'VERSION'), 'utf8').trim(); } catch (e) { }
+  const gs = rj(path.join(ctx.DATA, 'gear_sources.json'), {}) || {}, d = obj(gs.distributors);
+  return Object.assign({ version, dist: d.on === false ? [] : (Array.isArray(d.names) ? d.names.map(String) : []) }, ENG.v);
+}
 function ctxOf(ctx, conf) {
   const cfg = swarmCfg(ctx), states = {};
   (ctx.readStates ? ctx.readStates() : []).forEach(s => { if (s && s.name) states[s.name] = s; });
@@ -175,7 +186,7 @@ function info(ctx) {
   const lead = o.leader ? [Object.assign(charBlock(ctx, o.leader, Object.assign({}, o, { rows: true })), { grades: [] })] : [];
   const mules = conf.mules.map(m => Object.assign(charBlock(ctx, m.name, Object.assign({}, o, { rows: true })), { grades: m.grades }));
   return { ok: true, file: path.basename(fileOf(ctx)), exists: R.exists, broken: R.broken || null, rev: R.rev, conf, clanLeader: o.leader, grades: GRADES, maxEnchTop: MAX_ENCH_TOP,
-    candidates, mules, leader: lead[0] || null, at: isoNow() };
+    candidates, mules, leader: lead[0] || null, engine: engine(ctx), at: isoNow() };
 }
 function charInfo(ctx, name) {
   if (!NAME_RE.test(String(name || ''))) return { code: 400, error: 'name?' };

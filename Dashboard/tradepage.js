@@ -1,16 +1,19 @@
 // TRADE page #/trade (HANDOVER, user 2026-10-10: "I need some buttons so I can tell teams and characters to go to the clan leader OR a
 // character of own choice and trade everything we want to. I need to be able to select what should be traded easily.").
-//   1 who gives (characters, whole parties, everyone)   2 who receives (default: the clan leader)   3 what (the givers' LIVE bags, by category,
+//   1 who receives (default: the clan leader)   2 who gives (characters, whole parties, everyone)   3 what (the givers' LIVE bags, by category,
 //   quick buttons, search, per-item tick + count, adena only with its own amount, presets)   -> Preview (dry run, exact list per giver)
 //   -> styled confirm (Dashboard/uidialog.js) -> the order (POST /api/trade/order: Logs/handover/<id>.json + "!handover <id>") -> live status.
 // Routes: #/trade, #/trade/party:<leader>, #/trade/char:<name> (pre-selects the givers; the party header + character page link here).
 // Data: Dashboard/tradepage_api.js (/api/trade/*), logic Dashboard/tradelogic.js (window.TradeLogic). Uses index.html globals: esc, api,
 // itemIcon, iconUrl, classIcon, stopChar, TAB, and uidialog's uiConfirm / uiAlert / uiPrompt / uiP / uiH / uiList / uiWarn / uiNote.
 // No browser alert / confirm / prompt.
+// TRADEORDER-2026-11-09 (owner): step 1 = who receives, step 2 = who gives. TRADESLOTS-2026-11-09: every character shows its free bag slots
+// (worn, quest items and adena count; the game's limit from the bot's bag report, else 200 / dwarves 250); the preview warns when the
+// receiver lacks room. GRADEFILTER-2026-11-09: grade buttons in "Gear (not worn)"; its "all" box ticks only the shown grades.
 (function () {
   'use strict';
   const SEC = 'tab-tradepage';
-  const TP = { open: false, info: null, bags: {}, givers: [], receiver: '@clanleader', sel: {}, adena: {}, q: '', quick: {}, busy: false, watch: null, timer: 0, bagT: 0, pre: '' };
+  const TP = { open: false, info: null, bags: {}, givers: [], receiver: '@clanleader', sel: {}, adena: {}, q: '', quick: {}, busy: false, watch: null, timer: 0, bagT: 0, pre: '', grades: [] };
   const $id = (i) => document.getElementById(i);
   const L = () => window.TradeLogic;
   const h = (s) => (typeof esc === 'function' ? esc(s) : String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
@@ -35,11 +38,25 @@
         if (TP.preAll) { TP.preAll = false; TP.quick.all = true; TP.sel = L().trQuick(TP.sel, TP.bags, 'all', true); } }   // GIVEALL-2026-10-24: "Give everything…" from the character page
       else if (d && d.error) flash(d.error, true);
     } catch (e) { flash('Could not load the bags: ' + e.message, true); }
-    TP.loadingBags = false; renderItems(); renderBar();
+    TP.loadingBags = false; renderItems(); renderBar(); renderGivers(); renderRecv();   // TRADESLOTS: live bags refresh the free-slot badges
   }
   const bagsSoon = () => { clearTimeout(TP.bagT); TP.bagT = setTimeout(() => loadBags(false), 500); };
   const allChars = () => { const out = []; ((TP.info && TP.info.parties) || []).forEach(p => p.members.forEach(m => { if (!out.some(x => x.name === m.name)) out.push(Object.assign({ party: p.leader }, m)); })); return out; };
   const receiverName = () => L().trReceiver(TP.receiver, TP.info && TP.info.clanLeader);
+  // TRADESLOTS: a loaded LIVE bag is fresher than the bot's report (the limit still comes from the report / the 200-250 rule)
+  function slotsFor(m) {
+    if (!m) return null;
+    const b = TP.bags[m.name], s = m.slots;
+    if (b && b.ok && b.src === 'live' && Number(b.used) > 0) return Object.assign(L().trSlots(b.used, b.lim || (s && s.game ? s.lim : 0), m.classId), { live: true });
+    return s || null;
+  }
+  function slotTip(s, name) {
+    if (!s) return `${name}: no bag report yet — free slots unknown`;
+    return `${name}: ${s.used} of ${s.lim} slots used, ${s.free} free${s.over ? ` (${s.over} OVER the limit — the limit is probably higher)` : ''}` +
+      `${s.game ? ' · limit from the game' : ' · limit not reported by the game yet: 200, dwarves 250 assumed'}${s.live ? ' · live bag' : s.ageSec != null ? ` · bag report ${Math.round(s.ageSec / 60)} min old` : ''}`;
+  }
+  const slotTxt = (s) => s ? `${s.game ? '' : '≈'}${s.free} free` : '? free';
+  const slotBadge = (m) => { const s = slotsFor(m); return `<span class="sl ${s ? s.lvl : 'unk'}" title="${h(slotTip(s, m.name))}">${slotTxt(s)}</span>`; };
 
   // ======================================================================== page frame
   function section() {
@@ -48,8 +65,8 @@
     s.innerHTML = `<div class="cpl-headrow"><h2><img class="gi" src="${ico('icon/etc_adena_i00')}" alt=""> Trade / hand-over</h2>
         <span class="muted cpl-intro">Send characters or whole parties to the clan leader (or anyone) and hand over exactly what you tick. Worn gear, quest items and items the server does not let you trade are never offered; adena only with its own amount.</span></div>
       <div class="cpl-msg" id="trdMsg" role="status" hidden></div>
-      <div class="box"><h3><span class="trd-n">1</span> Who gives</h3><div class="trd-hint">Tap a party name for the whole party, or single characters. The receiver never gives.</div><div id="trdGivers"></div></div>
-      <div class="box"><h3><span class="trd-n">2</span> Who receives</h3><div id="trdRecv"></div></div>
+      <div class="box"><h3><span class="trd-n">1</span> Who receives</h3><div id="trdRecv"></div></div>
+      <div class="box"><h3><span class="trd-n">2</span> Who gives</h3><div class="trd-hint">Tap a party name for the whole party, or single characters. The receiver never gives. <span class="trd-sl-key">N free</span> = free bag slots (worn gear, quest items and adena count too).</div><div id="trdGivers"></div></div>
       <div class="box"><h3><span class="trd-n">3</span> What</h3>
         <div id="trdPresets"></div>
         <div class="trd-quick" id="trdQuick" role="group" aria-label="quick select"></div>
@@ -63,6 +80,8 @@
         <p>Each giver stops what it does (never during a raid, Kamaloka or a mission — then it says so), goes to the receiver — same town: walks; another town: <code>.townname</code>; in the field: the same route planner as the return trip — asks him to stand still and trades its list in windows of ${TP.info ? TP.info.batch : 8} kinds. A window the server refuses is tried again item by item, so one forbidden item never blocks the rest. Each window is reported in party chat and in "What they do".</p>
         <p>A party leader who gives takes his party along on <code>.townname</code> (server follow). Members go alone and rejoin their party afterwards (return trip). The receiver accepts trades only from our own characters.</p>
         <p><b>Presets</b> store the receiver + categories / items / adena (Scripts/data/trade_presets.json). Applying one ticks the matching items in the loaded bags.</p>
+        <p><b>Free slots</b>: every bag entry takes one slot — a stack, adena, worn gear and quest items included. The limit is the one the game reports to the bot (written with its bag report every 2 min); a <b>≈</b> means it is not known yet and 200 (dwarves 250) is assumed. A live bag read for a giver updates its number. The preview counts the new slots the receiver needs (stacks he already holds take none).</p>
+        <p><b>Grade</b> buttons in Gear (not worn) show only those grades; the category's <b>all</b> box then ticks only what is shown. Ticked items of hidden grades stay ticked (the line says how many).</p>
       </div></details>
       <div class="trd-bar" id="trdBar"></div>`;
     (document.querySelector('main') || document.body).appendChild(s);
@@ -82,7 +101,7 @@
     try { [...$id('tabs').children].forEach(b => b.classList.toggle('on', b.dataset.tab === 'trade')); } catch (e) { }
     document.querySelectorAll('main > section').forEach(x => { if (x.id !== SEC) x.hidden = true; });
     const was = TP.open; s.hidden = false; TP.open = true;
-    if (!was) { const g = store('givers'), r = store('receiver'); if (Array.isArray(g)) TP.givers = g; if (r) TP.receiver = r; window.scrollTo(0, 0); }
+    if (!was) { const g = store('givers'), r = store('receiver'), gr = store('grades'); if (Array.isArray(g)) TP.givers = g; if (r) TP.receiver = r; if (Array.isArray(gr)) TP.grades = gr.filter(x => L().GRADES.includes(x)); window.scrollTo(0, 0); }
     TP.pre = pre || '';
     if (!TP.timer) TP.timer = setInterval(() => { if (TP.open && !document.hidden) pollOrders(); }, 5000);
     render();
@@ -125,17 +144,19 @@
         return `<div class="trd-party"><div class="trd-ph"><button class="trd-chip ${all ? 'on' : ''}" data-trdparty="${h(p.leader)}" aria-pressed="${all}">Party ${h(p.leader)}</button><span class="muted">${ms.length} character${ms.length === 1 ? '' : 's'}</span></div>
           <div class="trd-row">${p.members.map(m => {
             const me = m.name === R;
-            return `<button class="trd-chip ${G.has(m.name) ? 'on' : ''} ${me ? 'off' : ''}" ${me ? 'disabled title="the receiver"' : ''} data-trdchar="${h(m.name)}" aria-pressed="${G.has(m.name)}"><span class="dot ${m.online ? 'on' : ''}" title="${m.online ? 'online' : 'offline'}"></span>${h(m.name)}${m.level ? `<span class="lv">${m.level}</span>` : ''}${m.town ? `<span class="lv">· ${h(m.town)}</span>` : ''}${me ? '<span class="lv">(receiver)</span>' : ''}</button>`;
+            return `<button class="trd-chip ${G.has(m.name) ? 'on' : ''} ${me ? 'off' : ''}" ${me ? 'disabled title="the receiver"' : ''} data-trdchar="${h(m.name)}" aria-pressed="${G.has(m.name)}"><span class="dot ${m.online ? 'on' : ''}" title="${m.online ? 'online' : 'offline'}"></span>${h(m.name)}${m.level ? `<span class="lv">${m.level}</span>` : ''}${m.town ? `<span class="lv">· ${h(m.town)}</span>` : ''}${slotBadge(m)}${me ? '<span class="lv">(receiver)</span>' : ''}</button>`;
           }).join('')}</div></div>`;
       }).join('');
   }
   function renderRecv() {
     const el = $id('trdRecv'); if (!el || !TP.info) return;
-    const CL = TP.info.clanLeader || '', R = receiverName(), c = allChars().find(x => x.name === R);
-    const opts = `<option value="@clanleader" ${TP.receiver === '@clanleader' ? 'selected' : ''}>Clan leader${CL ? ' — ' + h(CL) : ' (unknown)'}</option>` +
-      TP.info.parties.map(p => `<optgroup label="Party ${h(p.leader)}">${p.members.map(m => `<option value="${h(m.name)}" ${TP.receiver === m.name ? 'selected' : ''}>${h(m.name)}${m.level ? ' (' + m.level + ')' : ''}</option>`).join('')}</optgroup>`).join('');
+    const CL = TP.info.clanLeader || '', R = receiverName(), c = allChars().find(x => x.name === R), clc = allChars().find(x => x.name === CL);
+    // TRADESLOTS: the option text carries online / level / town / free slots too (a <select> cannot hold the chip markup)
+    const optTxt = (m) => `${m.online ? '●' : '○'} ${m.name}${m.level ? ' (' + m.level + ')' : ''}${m.town ? ' · ' + m.town : ''} · ${slotTxt(slotsFor(m))}`;
+    const opts = `<option value="@clanleader" ${TP.receiver === '@clanleader' ? 'selected' : ''}>Clan leader${CL ? ' — ' + h(clc ? optTxt(clc) : CL) : ' (unknown)'}</option>` +
+      TP.info.parties.map(p => `<optgroup label="Party ${h(p.leader)}">${p.members.map(m => `<option value="${h(m.name)}" ${TP.receiver === m.name ? 'selected' : ''}>${h(optTxt(m))}</option>`).join('')}</optgroup>`).join('');
     el.innerHTML = `<div class="trd-recv"><select id="trdRecvSel" aria-label="receiver">${opts}</select>
-      <span class="muted">${c ? `${c.online ? 'online' : 'offline'}${c.town ? ' · in ' + h(c.town) : ' · in the field'}${c.task ? ' · ' + h(c.task) : ''}` : ''}</span></div>`;
+      <span class="muted">${c ? `<span class="dot ${c.online ? 'on' : ''}"></span>${c.online ? 'online' : 'offline'}${c.level ? ' · lvl ' + c.level : ''}${c.town ? ' · in ' + h(c.town) : ' · in the field'}${c.task ? ' · ' + h(c.task) : ''}` : ''}</span>${c ? slotBadge(c) : ''}</div>`;
   }
   function renderPresets() {
     const el = $id('trdPresets'); if (!el || !TP.info) return;
@@ -162,16 +183,23 @@
     const itemRow = (r) => {
       const v = ((TP.sel[r.giver] || {})[r.objId]) || 0, on = v > 0;
       return `<div class="trd-it ${on ? 'on' : ''} ${r.ok ? '' : 'no'}"><input type="checkbox" ${on ? 'checked' : ''} ${r.ok ? '' : 'disabled'} data-trdtick="${h(r.giver)}|${r.objId}" aria-label="${h(r.name)}">
-        <img src="${iIco(r.id)}" alt="" loading="lazy"><div class="nm">${r.enchant ? '+' + r.enchant + ' ' : ''}${h(r.name)}${many ? `<em>${h(r.giver)}</em>` : ''}${r.ok ? '' : `<span class="why">${h(r.why)}</span>`}</div>
+        <img src="${iIco(r.id)}" alt="" loading="lazy"><div class="nm">${r.enchant ? '+' + r.enchant + ' ' : ''}${h(r.name)}${r.cat === 'gear' && L().trGrade(r.grade) && L().trGrade(r.grade) !== 'NONE' ? `<span class="gr">${h(L().trGrade(r.grade))}</span>` : ''}${many ? `<em>${h(r.giver)}</em>` : ''}${r.ok ? '' : `<span class="why">${h(r.why)}</span>`}</div>
         ${r.ok ? `<label class="ct">${r.count > 1 ? `<input type="number" inputmode="numeric" min="0" max="${r.count}" value="${on ? v : ''}" placeholder="${fmt(r.count)}" data-trdcount="${h(r.giver)}|${r.objId}" aria-label="how many ${h(r.name)}"> / ${fmt(r.count)}` : '1'}</label>` : `<span class="ct">${fmt(r.count)}</span>`}</div>`;
     };
     const opened = store('openCats') || {};
     let html = `<div class="trd-bagsrc">${src.join(' · ')}${TP.loadingBags ? ' · reading…' : ''}</div>`;
+    const isOn = (r) => ((TP.sel[r.giver] || {})[r.objId] || 0) > 0;
     cats.forEach(([k, label, icon]) => {
-      const rs = ok.filter(r => r.cat === k); if (!rs.length) return;
-      const nOn = rs.filter(r => ((TP.sel[r.giver] || {})[r.objId] || 0) > 0).length;
-      html += `<details class="trd-cat" data-trdcat="${k}" ${opened[k] || TP.q ? 'open' : ''}><summary><img class="gi" src="${ico(icon)}" alt=""><span class="t">${h(label)}</span><span class="c">${nOn}/${rs.length}</span>
-        <label onclick="event.stopPropagation()"><input type="checkbox" data-trdcatall="${k}" ${nOn === rs.length ? 'checked' : ''}> all</label></summary><div class="trd-items">${rs.map(itemRow).join('')}</div></details>`;
+      const all = ok.filter(r => r.cat === k); if (!all.length) return;
+      // GRADEFILTER: only in Gear; the grade buttons count the rows of the search, the filter hides the other grades
+      const gf = k === 'gear', G = gf ? activeGrades() : [];
+      const rs = gf ? all.filter(r => L().trGradeMatch(r, G)) : all;
+      const nOn = rs.filter(isOn).length, hidOn = all.length - rs.length ? all.filter(r => !rs.includes(r) && isOn(r)).length : 0;
+      const gbar = gf ? `<div class="trd-grades" role="group" aria-label="filter gear by grade"><span class="muted">Grade:</span><button data-trdgrade="" class="${G.length ? '' : 'on'}" aria-pressed="${!G.length}">All</button>` +
+        L().trGradeCounts(all).map(([g, n]) => `<button data-trdgrade="${g || '?'}" class="${G.includes(g) ? 'on' : ''}" aria-pressed="${G.includes(g)}" ${g ? '' : 'disabled title="grade unknown"'}>${g === 'NONE' ? 'No grade' : g || '?'} <span class="muted">${n}</span></button>`).join('') +
+        `${hidOn ? `<span class="muted">+${hidOn} ticked in hidden grades</span>` : ''}</div>` : '';
+      html += `<details class="trd-cat" data-trdcat="${k}" ${opened[k] || TP.q ? 'open' : ''}><summary><img class="gi" src="${ico(icon)}" alt=""><span class="t">${h(label)}${G.length ? ` <span class="muted">· ${h(G.map(g => g === 'NONE' ? 'no grade' : g).join(', '))}</span>` : ''}</span><span class="c">${nOn}/${rs.length}</span>
+        <label onclick="event.stopPropagation()"><input type="checkbox" data-trdcatall="${k}" ${rs.length && nOn === rs.length ? 'checked' : ''} ${G.length ? `title="ticks only the shown grades (${h(G.join(', '))})"` : ''}> all</label></summary>${gbar}<div class="trd-items">${rs.length ? rs.map(itemRow).join('') : '<div class="muted">No gear of these grades.</div>'}</div></details>`;
     });
     if (!ok.length) html += `<div class="muted">${TP.q ? 'Nothing matches the search.' : 'Nothing tradeable in these bags.'}</div>`;
     if (no.length) html += `<details class="trd-cat"><summary><img class="gi" src="${ico('icon/etc_question_mark_i00')}" alt=""><span class="t">Not tradeable here</span><span class="c">${no.length}</span></summary><div class="trd-items">${no.map(itemRow).join('')}</div></details>`;
@@ -222,6 +250,11 @@
     if (d.trdchar) { const n = d.trdchar; setGivers(TP.givers.includes(n) ? TP.givers.filter(x => x !== n) : TP.givers.concat(n)); return; }
     if (d.trdparty) { const p = TP.info.parties.find(x => x.leader === d.trdparty); if (!p) return; const R = receiverName(), ms = p.members.map(m => m.name).filter(n => n !== R); const all = ms.every(n => TP.givers.includes(n)); setGivers(all ? TP.givers.filter(n => !ms.includes(n)) : TP.givers.concat(ms)); return; }
     if (d.trdquick) { const k = d.trdquick, on = !TP.quick[k]; TP.quick[k] = on; TP.sel = L().trQuick(TP.sel, TP.bags, k, on); renderItems(); renderBar(); return; }
+    if (d.trdgrade !== undefined) {                                      // GRADEFILTER: "All" clears, a grade toggles (several at once allowed)
+      const g = d.trdgrade; if (g === '?') return;
+      TP.grades = !g ? [] : TP.grades.includes(g) ? TP.grades.filter(x => x !== g) : L().GRADES.filter(x => x === g || TP.grades.includes(x));
+      store('grades', TP.grades); renderItems(); return;
+    }
     if (d.trdstop) { stopOrder(d.trdstop, t); return; }
     if (d.trdshow) { TP.watch = d.trdshow; pollOrders(); return; }
     switch (d.trd) {
@@ -244,7 +277,8 @@
       renderItems(); renderBar(); return;
     }
     if (d.trdcatall) {
-      const k = d.trdcatall, C = new Set([k]); TP.sel = L().trSelectCats(TP.sel, TP.bags, [...C], t.checked); renderItems(); renderBar(); return;
+      const k = d.trdcatall, C = new Set([k]), G = k === 'gear' ? activeGrades() : [];
+      TP.sel = L().trSelectCats(TP.sel, TP.bags, [...C], t.checked, G.length ? (r) => L().trGradeMatch(r, G) : null); renderItems(); renderBar(); return;
     }
     if (d.trdcount || d.trdadena) { onInput(e); renderItems(); }
   }
@@ -262,6 +296,12 @@
   }
   document.addEventListener('toggle', (e) => { const det = e.target; if (!det || !det.dataset || !det.dataset.trdcat) return; const o = store('openCats') || {}; o[det.dataset.trdcat] = det.open; store('openCats', o); }, true);
   const rowOf = (n, o) => ((TP.bags[n] && TP.bags[n].rows) || []).find(r => String(r.objId) === String(o));
+  // GRADEFILTER: the chosen grades that occur in the shown gear (search applied); [] = no filter
+  function activeGrades() {
+    if (!TP.grades.length) return [];
+    const have = new Set(); TP.givers.forEach(n => ((TP.bags[n] && TP.bags[n].rows) || []).forEach(r => { if (r.ok && r.cat === 'gear' && L().trMatch(r, TP.q)) have.add(L().trGrade(r.grade)); }));
+    return TP.grades.filter(g => have.has(g));
+  }
 
   async function preview(btn) {
     if (TP.busy) return; TP.busy = true; btn.disabled = true;
@@ -278,6 +318,13 @@
       });
       if (pv.problems.length) body.push(uiWarn(pv.problems.join('; ')));
       if (rc && !rc.online) body.push(uiWarn(`${R} looks offline: the givers wait for him (up to 30 min) and then report failed.`));
+      // TRADESLOTS: room in the receiver's bag (stacks he already holds take no new slot)
+      if (pv.recv) {
+        const s = pv.recv.slots, need = Number(pv.recv.need) || 0;
+        if (!s) body.push(uiNote(`${R}: free bag slots unknown (no bag read) — this hand-over needs about ${need} new slot${need === 1 ? '' : 's'}.`));
+        else if (need > s.free) body.push(uiWarn(`${R} has ${s.free} free slot${s.free === 1 ? '' : 's'} (${s.used}/${s.lim}${s.game ? '' : ', limit assumed'}) but this hand-over needs about ${need}. The trades stop when his bag is full — make room first or send less.`));
+        else body.push(uiNote(`${R}: ${s.free} free slot${s.free === 1 ? '' : 's'} (${s.used}/${s.lim}${s.game ? '' : ', limit assumed'}) · needs about ${need}.`));
+      }
       body.push(uiNote('Each giver stops what it is doing, travels to the receiver and trades. Never during a raid / Kamaloka / mission. You can stop it below.'));
       const ok = await uiConfirm({ title: 'Start this hand-over?', body, confirmText: 'Start hand-over', cancelText: 'Back' });
       if (!ok) return;

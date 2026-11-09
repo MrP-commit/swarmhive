@@ -37,6 +37,13 @@
   const GEAR_TYPES = /^(weapon|armor|armour|accessory|accessary|jewel)/i;
   const ID_RE = /^[a-z0-9][a-z0-9_-]{3,40}$/i;
   const LIMITS = { batch: 8, maxRows: 400, maxGivers: 40 };
+  // TRADESLOTS-2026-11-09 (owner: "every character needs a free inventory slots marker: 200 max, 250 for dwarves — unless the game client
+  // can tell; worn items and quest items count too"). Every entry of the bag is one slot (a stack = 1, adena = 1, worn = 1, quest = 1).
+  // The real limit comes from the game (swarm.js Me.InventoryLimit -> Logs/bag_<name>.json "lim"); without it: 200, dwarves 250.
+  const SLOTS = { normal: 200, dwarf: 250, warn: 25, bad: 10 };
+  const DWARF_CLASSES = [53, 54, 55, 56, 57, 117, 118];             // Dwarven Fighter, Scavenger, Bounty Hunter, Artisan, Warsmith, Fortune Seeker, Maestro
+  // GRADEFILTER-2026-11-09 (owner: "a button in Trade -> Gear that filters the items by grade"); keys = Dashboard/data/items.json crystal codes 0-7
+  const GRADES = ['NONE', 'D', 'C', 'B', 'A', 'S', 'S80', 'S84'];
 
   const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
   const setOf = (arr) => { const s = new Set(); (arr || []).forEach(x => s.add(num(x))); return s; };
@@ -76,7 +83,47 @@
     });
     const ord = (c) => { const i = CAT_KEYS.indexOf(c); return i < 0 ? 99 : i; };
     rows.sort((a, b) => (a.ok === b.ok ? 0 : a.ok ? -1 : 1) || ord(a.cat) - ord(b.cat) || a.name.localeCompare(b.name) || b.enchant - a.enchant);
-    return { rows, adena };
+    return { rows, adena, used: (items || []).filter(Boolean).length };   // TRADESLOTS: used = every entry (worn, quest, adena included)
+  }
+  // ---------------- TRADESLOTS / GRADEFILTER ----------------
+  const isDwarf = (classId) => DWARF_CLASSES.includes(num(classId));
+  /** free inventory slots: used entries, the game's limit (0 / missing = unknown -> 200, dwarves 250) ->
+   *  { used, lim, free, over, game: limit came from the game, lvl: '' | 'warn' | 'bad' } */
+  function trSlots(used, gameLim, classId) {
+    const u = Math.max(0, Math.round(num(used))), g = Math.round(num(gameLim)) > 0;
+    const lim = g ? Math.round(num(gameLim)) : (isDwarf(classId) ? SLOTS.dwarf : SLOTS.normal);
+    const free = Math.max(0, lim - u);
+    return { used: u, lim, free, over: Math.max(0, u - lim), game: g, lvl: free <= SLOTS.bad ? 'bad' : free <= SLOTS.warn ? 'warn' : '' };
+  }
+  /** a grade text (items.json code 0-7, 'B', 'none', 's80', the MCP grade field) -> 'NONE' | 'D' … 'S84' | '' (unknown) */
+  function trGrade(g) {
+    if (g === undefined || g === null || g === '') return '';
+    if (typeof g === 'number' || /^\d+$/.test(String(g))) return GRADES[num(g)] || '';
+    const s = String(g).trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (s === 'NONE' || s === 'NG' || s === 'NOGRADE' || s === 'NOGRADE0') return 'NONE';
+    return GRADES.includes(s) ? s : '';
+  }
+  /** does a row pass the grade filter? grades = [] / null = no filter; a row without a known grade passes only an empty filter */
+  function trGradeMatch(row, grades) { const G = grades || []; return !G.length || G.includes(trGrade(row && row.grade)); }
+  /** grade -> number of rows (only the grades that occur, in GRADES order; '' = unknown last) */
+  function trGradeCounts(rows) {
+    const c = {}; (rows || []).forEach(r => { const g = trGrade(r.grade); c[g] = (c[g] || 0) + 1; });
+    return GRADES.concat(['']).filter(g => c[g]).map(g => [g, c[g]]);
+  }
+  /** about how many NEW slots the receiver needs: a stack he already holds (or that another giver also sends) takes none,
+   *  every piece takes one; adena takes one only when he has none. recv = his bag ({ rows, adena }) or null (unknown: all new) */
+  function trRecvNeed(givers, recv) {
+    const has = new Set(((recv && recv.rows) || []).map(r => num(r.id))), seen = new Set(); let need = 0, adena = false;
+    (givers || []).forEach(g => {
+      (g.rows || []).forEach(r => {
+        const id = num(r.id);
+        if (r.stack) { if (has.has(id) || seen.has(id)) return; seen.add(id); need++; return; }
+        need++;
+      });
+      if (num(g.adena) > 0) adena = true;
+    });
+    if (adena && !(recv && num(recv.adena) > 0)) need++;
+    return need;
   }
   /** counts per category of the tradeable rows of several bags { cat: { kinds, count } } */
   function trCatCounts(bags) {
@@ -85,11 +132,11 @@
     return out;
   }
   /** selection = { giver: { objId: count } }; adena = { giver: amount }. Tick every tradeable row of `cats` (all givers), full counts. */
-  function trSelectCats(sel, bags, cats, on) {
+  function trSelectCats(sel, bags, cats, on, pick) {
     const out = Object.assign({}, sel || {}), C = new Set(cats || []);
     Object.keys(bags || {}).forEach(n => {
       const m = out[n] = Object.assign({}, out[n] || {});
-      ((bags[n] && bags[n].rows) || []).forEach(r => { if (r.ok && C.has(r.cat)) { if (on === false) delete m[r.objId]; else m[r.objId] = r.count; } });
+      ((bags[n] && bags[n].rows) || []).forEach(r => { if (r.ok && C.has(r.cat) && (!pick || pick(r))) { if (on === false) delete m[r.objId]; else m[r.objId] = r.count; } });   // pick: GRADEFILTER (only the shown grades)
     });
     return out;
   }
@@ -190,6 +237,7 @@
       : `${st || 'working'}${r.step ? ': ' + r.step : ''}${g ? ` — ${g} given so far` : ''}`;
     return { state: st || 'working', label, given: g, failed: f, skipped: s };
   }
-  return { TRADE_CATS, CAT_KEYS, QUICK, LIMITS, ID_RE, trData, trClassify, trBagRows, trCatCounts, trSelectCats, trQuick, trMatch,
-    trPresetCheck, trPresetPick, trApplyPreset, trReceiver, trPreview, trBatches, trOrder, trNewId, trResultLine };
+  return { TRADE_CATS, CAT_KEYS, QUICK, LIMITS, ID_RE, SLOTS, DWARF_CLASSES, GRADES, trData, trClassify, trBagRows, trCatCounts, trSelectCats, trQuick, trMatch,
+    trPresetCheck, trPresetPick, trApplyPreset, trReceiver, trPreview, trBatches, trOrder, trNewId, trResultLine,
+    trSlots, trGrade, trGradeMatch, trGradeCounts, trRecvNeed };
 });

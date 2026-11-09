@@ -311,4 +311,4 @@ async function handle(req, res, url, ctx) {
   try { const r = post(ctx, b) || bad(500, 'no result'); const code = r.code || 200; delete r.code; ctx.json(res, code, r); } catch (e) { ctx.json(res, 500, { error: e.message }); }
   return true;
 }
-module.exports = { handle, info, post, plan, whsellOrder, clanWh, readRules, rulesFile, storageSanitize, effective, kindFor, TOWN_KEYS, LETTER_IDS, DESTS, MODES, TRIGGERS };
+module.exports = { itemCat, handle, info, post, plan, whsellOrder, clanWh, readRules, rulesFile, storageSanitize, effective, kindFor, TOWN_KEYS, LETTER_IDS, DESTS, MODES, TRIGGERS };   // MULES-2026-11-06: + itemCat (Dashboard/mulespage_api.js)

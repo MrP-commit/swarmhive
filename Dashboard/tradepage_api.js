@@ -11,6 +11,9 @@
 //   POST /api/trade/stop    { id }        sends "!handover stop <id>" to the same characters
 //   GET  /api/trade/status?id=<id>        the order + every giver's result file Logs/handover/<id>_<name>.json (+ the receiver's)
 //   POST /api/trade/presets { action: 'save' | 'delete', preset | name }
+// TRADESLOTS-2026-11-09: info members carry slots { used, lim, free, over, game, lvl, ageSec } (Logs/bag_<name>.json: every entry, "lim" = the
+// game's Me.InventoryLimit; no lim -> 200 / dwarves 250); bags carry used + lim; plan carries recv { name, need, slots }.
+// GRADEFILTER-2026-11-09: every bag row carries grade (Dashboard/data/items.json crystal code -> 'NONE' | 'D' … 'S84', else the MCP grade field).
 // Every write: one line in Logs/dashboard_commands.log. SWARM_HANDOVER_DIR / SWARM_TRADEPRESETS_FILE override the folders (tests).
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -20,6 +23,26 @@ const DIR_OF = (ctx) => process.env.SWARM_HANDOVER_DIR || path.join(ctx.LOGS, 'h
 const PRESETS_OF = (ctx) => process.env.SWARM_TRADEPRESETS_FILE || path.join(ctx.DATA, 'trade_presets.json');
 const BAG_TTL = 15000;
 const bagCache = {};                                   // name -> { at, bag }
+// TRADESLOTS-2026-11-09: slots used + the game's limit per character from the bot's bag report (cached by file mtime)
+const slotCache = {};                                  // name -> { mt, used, lim, at }
+function slotReport(ctx, name) {
+  const f = path.join(ctx.LOGS, `bag_${name}.json`);
+  let mt = 0; try { mt = fs.statSync(f).mtimeMs; } catch (e) { return null; }
+  const c = slotCache[name]; if (c && c.mt === mt) return c;
+  const j = ctx.readJson(f, null); if (!j || !Array.isArray(j.items)) return null;
+  return (slotCache[name] = { mt, used: j.items.length, lim: Number(j.lim) || 0, at: Date.parse(j.at) || mt });
+}
+/** { used, lim, free, over, game, lvl, ageSec } | null (no bag report yet) */
+function slotsOf(ctx, name, classId) {
+  const r = slotReport(ctx, name); if (!r) return null;
+  return Object.assign(TL.trSlots(r.used, r.lim, classId), { ageSec: Math.max(0, Math.round((Date.now() - r.at) / 1000)) });
+}
+// GRADEFILTER-2026-11-09: grade of an item id from Dashboard/data/items.json ([name, icon, type, crystal code 0-7]); '' = unknown
+let ITEMDB = null;
+function itemGrade(ctx, id) {
+  if (!ITEMDB) { ITEMDB = ctx.readJson(path.join(ctx.DIR || __dirname, 'data', 'items.json'), null) || {}; }
+  const it = ITEMDB[id]; return it && it[3] !== undefined && it[3] !== '' && it[3] !== null ? TL.trGrade(String(it[3])) : '';
+}
 
 let ITEMS = null, itemsStamp = '';
 function tradeData(ctx) {
@@ -66,12 +89,13 @@ function info(ctx) {
   const P = parties(ctx).map(({ leader, names }) => ({ leader, members: names.map(n => {
     const s = states[n] || {}; const x = Number(s.x != null ? s.x : (s.pos && s.pos.x)), y = Number(s.y != null ? s.y : (s.pos && s.pos.y));
     return { name: n, online: s.ageSec != null && s.ageSec <= 90, level: s.level != null ? Number(s.level) : null, classId: s.classId != null ? Number(s.classId) : null,
-      cls: s.cls || '', task: String(s.task || '').slice(0, 80), town: Number.isFinite(x) && Number.isFinite(y) ? townNear(x, y) : '', mode: s.mode || '' };
+      cls: s.cls || '', task: String(s.task || '').slice(0, 80), town: Number.isFinite(x) && Number.isFinite(y) ? townNear(x, y) : '', mode: s.mode || '',
+      slots: slotsOf(ctx, n, s.classId) };
   }) }));
   // the clan leader may not be in any party listing (solo): add him
-  if (CL && !P.some(p => p.members.some(m => m.name === CL))) P.push({ leader: CL, members: [{ name: CL, online: !!(states[CL] && states[CL].ageSec <= 90), level: states[CL] ? states[CL].level : null, classId: states[CL] ? states[CL].classId : null, cls: states[CL] ? states[CL].cls : '', task: '', town: '', mode: '' }] });
+  if (CL && !P.some(p => p.members.some(m => m.name === CL))) P.push({ leader: CL, members: [{ name: CL, online: !!(states[CL] && states[CL].ageSec <= 90), level: states[CL] ? states[CL].level : null, classId: states[CL] ? states[CL].classId : null, cls: states[CL] ? states[CL].cls : '', task: '', town: '', mode: '', slots: slotsOf(ctx, CL, states[CL] && states[CL].classId) }] });
   const own = presetsRead(ctx), names = new Set(own.map(p => p.name));
-  return { clanLeader: CL, parties: P, presets: own.concat(DEFAULT_PRESETS.filter(p => !names.has(p.name))), cats: TL.TRADE_CATS, quick: TL.QUICK, batch: TL.LIMITS.batch, orders: recentOrders(ctx, 8) };
+  return { clanLeader: CL, parties: P, presets: own.concat(DEFAULT_PRESETS.filter(p => !names.has(p.name))), cats: TL.TRADE_CATS, quick: TL.QUICK, batch: TL.LIMITS.batch, slotRule: TL.SLOTS, orders: recentOrders(ctx, 8) };
 }
 function bagReport(ctx, name) {
   const f = path.join(ctx.LOGS, `bag_${name}.json`);
@@ -93,7 +117,9 @@ async function bagOf(ctx, name, fresh) {
   }
   if (!items) { const r = bagReport(ctx, name); if (r) { items = r.items; src = 'report'; ageSec = r.ageSec; } }
   const D = tradeData(ctx);
-  const bag = items ? Object.assign(TL.trBagRows(items, D), { ok: true, src, ageSec, err }) : { ok: false, rows: [], adena: 0, src: '', err: err || 'no bag known (MCP down and no Logs/bag_<name>.json yet)' };
+  if (items) items.forEach(i => { i.grade = itemGrade(ctx, Number(i.id)) || TL.trGrade(i.grade); });   // GRADEFILTER: the item table first, the live grade field else
+  const sr = slotReport(ctx, name);                                                                     // TRADESLOTS: the game's limit only comes with the bot's report
+  const bag = items ? Object.assign(TL.trBagRows(items, D), { ok: true, src, ageSec, err, lim: sr ? sr.lim : 0 }) : { ok: false, rows: [], adena: 0, src: '', err: err || 'no bag known (MCP down and no Logs/bag_<name>.json yet)' };
   bagCache[name] = { at: Date.now(), bag };
   return bag;
 }
@@ -118,6 +144,11 @@ async function plan(ctx, b, fresh) {
   pv.receiver = receiver; pv.batches = {};
   pv.givers.forEach(g => { pv.batches[g.name] = TL.trBatches(g.rows.concat(g.adena ? [{ adena: true, count: g.adena, name: g.adena + ' adena' }] : []), TL.LIMITS.batch).length; });
   pv.bagSrc = {}; Object.keys(B).forEach(n => { pv.bagSrc[n] = { src: B[n].src, ageSec: B[n].ageSec || 0, err: B[n].err || '' }; });
+  // TRADESLOTS: how many new slots the receiver needs vs. how many he has free (his bag: live / report; unknown = no check)
+  try {
+    const RB = (await bags(ctx, [receiver], fresh))[receiver], st = (ctx.readStates() || []).find(s => s.name === receiver) || {};
+    pv.recv = { name: receiver, need: TL.trRecvNeed(pv.givers, RB && RB.ok ? RB : null), slots: RB && RB.ok ? TL.trSlots(RB.used, RB.lim, st.classId) : null };
+  } catch (e) { pv.recv = { name: receiver, need: TL.trRecvNeed(pv.givers, null), slots: null }; }
   return pv;
 }
 function ordFile(ctx, id) { if (!TL.ID_RE.test(String(id || ''))) return null; return path.join(DIR_OF(ctx), `${id}.json`); }

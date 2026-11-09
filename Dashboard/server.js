@@ -446,6 +446,13 @@ function classrotApi() {
   if (!CLASSROT_HOT.mod || sig !== CLASSROT_HOT.sig) { files.forEach(f => { try { delete require.cache[require.resolve(f)]; } catch (e) { } }); CLASSROT_HOT = { sig, mod: require('./classrot_api') }; }
   return CLASSROT_HOT.mod;
 }
+// MULES-2026-11-06: the Mules page API (Dashboard/mulespage_api.js) reloads itself when the file changes, like the Combat page API
+let MULES_HOT = { sig: '', mod: null };
+function muleApi() {
+  const f = path.join(__dirname, 'mulespage_api.js'); let sig = ''; try { sig = String(fs.statSync(f).mtimeMs); } catch (e) { }
+  if (!MULES_HOT.mod || sig !== MULES_HOT.sig) { try { delete require.cache[require.resolve(f)]; } catch (e) { } MULES_HOT = { sig, mod: require('./mulespage_api') }; }
+  return MULES_HOT.mod;
+}
 function readStates() {
   if (!RS_CACHE.list || Date.now() - RS_CACHE.at > 1000) RS_CACHE = { at: Date.now(), list: readStatesFresh() };
   const now = Date.now();
@@ -2716,6 +2723,9 @@ http.createServer(async (req, res) => {
     // WHAUTO-2026-10-16 (Dashboard/whauto_api.js): GET/POST /api/whauto = default sell / crystallize per clan warehouse item; the tick below runs it
     if (await require('./whauto_api').handle(req, res, url, { DIR: __dirname, DATA, LOGS, ROOT, readJson, readStates, teamMap, allowed, json, send, commandRun })) return;
     if (await require('./storagepage_api').handle(req, res, url, { DIR: __dirname, DATA, LOGS, ROOT, readJson, readStates, teamMap, reloadCfg: () => SC.reload(), mainLeader: MAIN_LEADER, allowed, json, send })) return;
+    // MULES-2026-11-06 (Dashboard/mulespage_api.js, hot): /mulespage.js|css (public) + GET/POST /api/mules, GET /api/mules/char (key checked inside): the characters whose
+    // bag + private warehouse a !gearup also searches (Scripts/data/gear_suppliers.json, read live by swarm.js gsaSuppliers) and what they hold
+    try { if (await muleApi().handle(req, res, url, { DIR: __dirname, DATA, LOGS, ROOT, readJson, readStates, allowed, json, send })) return; } catch (e) { if (/^\/(api\/mules|mulespage)/.test(url.pathname)) return json(res, 500, { error: 'Mules page: ' + e.message }); }
     // 7 SIGNS 2026-10-12 (Dashboard/sevensigns_api.js): /sevensigns.js|css (public) + GET/POST /api/sevensigns (key checked inside): who signs up with the
     // Lords of Dawn by itself (Scripts/data/seven_signs.json, read by swarm.js SSOPTIN every 30 s), period / registration / seal stones per character
     if (await require('./sevensigns_api').handle(req, res, url, { DIR: __dirname, DATA, LOGS, ROOT, readJson, readStates, teamMap, reloadCfg: () => SC.reload(), mainLeader: MAIN_LEADER, allowed, json, send })) return;

@@ -126,7 +126,11 @@
     if (!C) { el.innerHTML = '<div class="muted">Loading…</div>'; return; }
     const CL = (I && I.clanLeader) || '', L = (I && I.leader) || null;
     const steps = ['its own bag', 'its own warehouse', CL ? `${h(CL)} (clan leader)` : 'the clan leader', C.on ? (C.mules.length ? C.mules.map(m => `<b>${h(m.name)}</b>`).join(' → ') : '<i>no mules yet</i>') : '<s>mules</s> (off)', 'the clan warehouse', 'buy'];
-    el.innerHTML = `<div class="mul-order">${steps.map((s, i) => `<span class="mul-step">${i + 1}. ${s}</span>`).join('<span class="mul-arr">→</span>')}</div>
+    const E = I && I.engine;   // ENGINECHECK-2026-11-09: the running swarm.js does not read gear_suppliers.json -> say so above everything
+    const eng = E && E.reads === false ? `<div class="mul-eng"><b>⚠ The running swarm.js${E.version ? ' (SwarmHive ' + h(E.version) + ')' : ''} does not use this list: a gear-up does NOT search these mules now.</b>
+      It searches its own warehouse, ${E.dist && E.dist.length ? 'the distributors (' + E.dist.map(h).join(', ') + ' — their bags, standing in Giran)' : 'the distributors (Gear page → Distributors; none set)'}, every character's spare bag pieces and the clan warehouse, then buys.
+      The list here is kept; it works again once the mule search (SUPPLY) is back in swarm.js.</div>` : '';
+    el.innerHTML = eng + `<div class="mul-order">${steps.map((s, i) => `<span class="mul-step">${i + 1}. ${s}</span>`).join('<span class="mul-arr">→</span>')}</div>
       ${L && !L.used ? `<div class="fnd-hint bad">The clan leader ${h(CL)} is skipped too: ${h(L.why.join('; '))}</div>` : ''}
       <div class="mul-setrow">
         <label class="fnd-sw"><input type="checkbox" data-mulset="on" ${C.on ? 'checked' : ''}><span class="tr" aria-hidden="true"></span><span class="lb ${C.on ? 'on' : 'off'}">${C.on ? 'On: the mules are searched at every gear-up' : 'Off: only the clan leader is searched'}</span></label>

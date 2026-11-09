@@ -46,3 +46,5 @@
 .mul details.mul-fold[open] > summary::before { content: '▾'; }
 .mul details.mul-fold > summary h3 { flex: 1 1 auto; min-width: 0; margin: 0; }
 .mul details.mul-fold:not([open]) > summary h3 { border-bottom: 0; }
+/* ENGINECHECK-2026-11-09: the running swarm.js does not read gear_suppliers.json */
+.mul-eng { margin: 0 0 10px; padding: 8px 12px; border: 1px solid #8f2f24; background: rgba(74, 23, 20, .55); border-radius: 4px; color: #ffd9d0; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }

@@ -6,18 +6,21 @@ character page opens the page with those givers already picked).
 Send one character, several, a whole party or everyone to the clan leader, or to any character you pick, and hand over exactly the
 items you tick. The bots do the travelling and the trading. Nothing moves until you have seen the preview and pressed **Start hand-over**.
 
-## 1 · Who gives
+## 1 · Who receives
+
+The default is **Clan leader**. That is `clan.leader` in `Scripts/data/clan_quests.json`, else `clanLeader` in `swarm.config.json`.
+You can pick any other character from the list. The line next to the list says whether the receiver is online, which town it is in,
+and what it is doing. Each name in the list also shows its free bag slots.
+
+## 2 · Who gives
 
 - **Party &lt;leader&gt;**: tap it to add or remove the whole party.
 - Tap a single character to add or remove it. The green dot means online. The level and the town it stands in are shown next to the name.
 - **Everyone** / **Nobody**.
 - The receiver can never give. It is greyed out in the list.
-
-## 2 · Who receives
-
-The default is **Clan leader**. That is `clan.leader` in `Scripts/data/clan_quests.json`, else `clanLeader` in `swarm.config.json`.
-You can pick any other character from the list. The line next to the list says whether the receiver is online, which town it is in,
-and what it is doing.
+- **N free** next to each name = free bag slots. Every bag entry takes one slot: a stack, adena, worn gear and quest items count too.
+  The limit is the one the game reports to the bot (`lim` in `Logs/bag_<name>.json`). **≈** = the game has not reported it yet,
+  so 200 (dwarves 250) is assumed. Amber = 25 or fewer free, red = 10 or fewer. A live bag read updates a giver's number.
 
 ## 3 · What
 
@@ -27,6 +30,10 @@ The givers' bags are read **live** from the game, with the item icons. When MCP 
 Items are grouped: **Raid materials** (materials raid bosses drop), **Crafting materials**, **Recipes**, **Enchant scrolls**
 (enchant, attribute and enchant-chance scrolls), **Gear (not worn)**, **Dyes**, **Life stones**, **Consumables** and **Everything else**.
 Tap a group to open it, or use **all** to tick the whole group.
+
+**Grade** (inside **Gear (not worn)**): All · No grade · D · C · B · A · S · S80 · S84, only the grades the bags hold, with how many.
+Tap one or more to show only those grades; **All** shows everything again. The group's **all** box then ticks only the shown grades.
+Items ticked in hidden grades stay ticked; the grade line says how many. The choice is remembered in this browser.
 
 - **Quick buttons**: All materials · Raid materials · All recipes · All enchant scrolls · All unequipped gear · All life stones · All dyes ·
   Everything tradeable. "Everything tradeable" leaves consumables (potions, shots, scrolls) and adena out; tick those by hand.
@@ -49,7 +56,8 @@ outside them, and the largest adena amount (given per giver). Saved presets (★
 
 The bar at the bottom shows how many kinds, how much adena and how many givers, and who receives. **Preview + start…** reads the
 bags again and lists, per giver, exactly what it will hand over and in how many trade windows (8 kinds each). Anything it cannot
-give is listed with the reason. **Start hand-over** saves the order (`Logs/handover/<id>.json`) and sends `!handover <id>` to every
+give is listed with the reason. It also says how many free slots the receiver has and about how many new slots the hand-over needs
+(a stack he already holds takes none); a warning when it does not fit. **Start hand-over** saves the order (`Logs/handover/<id>.json`) and sends `!handover <id>` to every
 giver and to the receiver.
 
 What the bots then do:
