@@ -1,1 +1,279 @@
-{"id":247,"name":"Possessor Of A Precious Soul 4","type":"one-time","typeWhy":"exitQuest(false / ONE_TIME) on completion","clientType":1,"clientStepsMatchConds":false,"level":{"min":75,"max":null},"levelWhy":"level check in the script","requirements":{"quests":[{"id":246,"name":"Q00246_PossessorOfAPreciousSoul3","need":"completed"}]},"startNpcs":[{"id":31740,"name":"Caradine","title":"","spawnCount":1,"spawns":[[150144,-57920,-2979]],"town":"Goddard","inTown":true,"region":"Goddard outskirts"}],"npcs":[{"id":31740,"name":"Caradine","title":"","spawnCount":1,"spawns":[[150144,-57920,-2979]],"town":"Goddard","inTown":true,"region":"Goddard outskirts"},{"id":31745,"name":"Lady of the Lake","title":"","spawnCount":1,"spawns":[[143200,44000,-3040]],"town":"Aden","townDist":18505,"region":"Coliseum / Narsell Fortress"}],"monsters":[],"items":[{"id":7679,"name":"Caradine's Letter","icon":"icon/etc_letter_envelope_i00","questItem":false,"roles":["taken"],"takenBy":[0]},{"id":7694,"name":"Noblesse Tiara","icon":"icon/accessory_noblesse_tiara_i00","questItem":false,"roles":["reward"],"givenBy":[2]}],"steps":[{"cond":0,"title":"Talk to Caradine – accept the quest","talk":[31740]},{"cond":1,"talk":[31740],"leave":[1],"reachedBy":[0]},{"cond":2,"talk":[31745],"leave":[2],"reachedBy":[1]}],"transitions":[{"to":1,"start":true,"trigger":{"type":"event","npcs":[31740],"events":["31740-3.html"],"links":["\"Yes, I am!\""]},"takes":[{"id":7679,"count":-1}]},{"from":[1],"to":2,"trigger":{"type":"event","npcs":[31740],"events":["31740-5.html"],"links":["\"I'm ready.\""]}},{"from":[2],"to":"end","end":"one-time","trigger":{"type":"event","npcs":[31745],"events":["31745-5.html"],"links":["\"Of course. As you wish.\""]},"gives":[{"id":7694,"count":1}],"exp":93836,"sp":0}],"drops":[],"rewards":{"final":[{"trigger":{"type":"event","npcs":[31745],"events":["31745-5.html"],"links":["\"Of course. As you wish.\""]},"conds":[2],"exp":93836,"sp":0,"items":[{"name":"Noblesse Tiara","id":7694,"count":1}]}]},"registered":{"start":[31740],"talk":[31740,31745]},"parse":{"status":"full","reasons":[]}}
+{
+ "id": 247,
+ "name": "Possessor Of A Precious Soul 4",
+ "type": "one-time",
+ "typeWhy": "exitQuest(false / ONE_TIME) on completion",
+ "clientType": 1,
+ "clientStepsMatchConds": false,
+ "level": {
+  "min": 75,
+  "max": null
+ },
+ "levelWhy": "level check in the script",
+ "requirements": {
+  "quests": [
+   {
+    "id": 246,
+    "name": "Q00246_PossessorOfAPreciousSoul3",
+    "need": "completed"
+   }
+  ],
+  "subclass": true
+ },
+ "clientNames": [
+  "Path of the Noblesse, Precious Soul - 4"
+ ],
+ "clientNamesWhy": "Scripts/data/npc_strings.json fstring 24701/24702/24703 (L2Toggle quest lists show client names; Q241/Q242/Q246 live 2026-11-04/05)",
+ "startNpcs": [
+  {
+   "id": 31740,
+   "name": "Caradine",
+   "title": "",
+   "spawnCount": 1,
+   "spawns": [
+    [
+     150144,
+     -57920,
+     -2979
+    ]
+   ],
+   "town": "Goddard",
+   "inTown": true,
+   "region": "Goddard outskirts",
+   "note": "Goddard outskirts (same NPC as Q246 start / Q241 end); travel = npc trip .goddard + Goddard streets (worked live 2026-11-05 11:16)"
+  }
+ ],
+ "npcs": [
+  {
+   "id": 31740,
+   "name": "Caradine",
+   "title": "",
+   "spawnCount": 1,
+   "spawns": [
+    [
+     150144,
+     -57920,
+     -2979
+    ]
+   ],
+   "town": "Goddard",
+   "inTown": true,
+   "region": "Goddard outskirts",
+   "note": "Goddard outskirts (same NPC as Q246 start / Q241 end); travel = npc trip .goddard + Goddard streets (worked live 2026-11-05 11:16)"
+  },
+  {
+   "id": 31745,
+   "name": "Lady of the Lake",
+   "title": "",
+   "spawnCount": 1,
+   "spawns": [
+    [
+     143200,
+     44000,
+     -3040
+    ]
+   ],
+   "town": "Aden",
+   "townDist": 18505,
+   "region": "west of the Aden Coliseum (no monster spawn within 3000, spawns_h5.json)",
+   "note": "reached by Caradine's teleport only (31740-5 -> 143209,43968); a walk there (goToNpc) is only the fallback for a character at cond 2 that left the spot (death / SoE / relog). L2Toggle spawn not seen live yet."
+  }
+ ],
+ "monsters": [],
+ "items": [
+  {
+   "id": 7679,
+   "name": "Caradine's Letter",
+   "icon": "icon/etc_letter_envelope_i00",
+   "questItem": false,
+   "roles": [
+    "taken"
+   ],
+   "note": "Q246 reward (Magister Ladd), taken at the start (31740-3.html takeItems -1). NOT a quest item -> no bag proof of the stage"
+  },
+  {
+   "id": 7694,
+   "name": "Noblesse Tiara",
+   "icon": "icon/accessory_noblesse_tiara_i00",
+   "questItem": false,
+   "roles": [
+    "reward"
+   ],
+   "note": "final reward from the Lady of the Lake (with setNoble(true)) = proof of the end in the bag"
+  }
+ ],
+ "registered": {
+  "start": [
+   31740
+  ],
+  "talk": [
+   31740,
+   31745
+  ],
+  "questItems": []
+ },
+ "transitions": [
+  {
+   "start": true,
+   "to": 1,
+   "trigger": {
+    "type": "event",
+    "npcs": [
+     31740
+    ],
+    "events": [
+     "31740-3.html"
+    ],
+    "links": [
+     "\"Yes, I am!\"",
+     "Yes, I am!",
+     "\"I'm ready.\"",
+     "I'm ready."
+    ],
+    "anyLink": true,
+    "donePages": [
+     "A new era dawns!",
+     "May the blessings of starlight be with you"
+    ],
+    "doneTo": 2
+   },
+   "takes": [
+    {
+     "id": 7679,
+     "count": -1
+    }
+   ],
+   "note": "one dialog runs 31740-1 \"Yes, I am!\" (start, letter taken) -> 31740-3 \"I'm ready.\" -> 31740-4 \"I'm ready.\" (cond 2 + teleport) -> 31740-5 \"A new era dawns!\": that page = doneTo 2. A lost page after the teleport: TELEPROOF (v22) on the cond-1 transition. No \"Quest\" in links (front-page menu rule; a refusal page must not count as a start hit)."
+  },
+  {
+   "from": [
+    1
+   ],
+   "to": 2,
+   "trigger": {
+    "type": "event",
+    "npcs": [
+     31740
+    ],
+    "events": [
+     "31740-5.html"
+    ],
+    "links": [
+     "\"I'm ready.\"",
+     "I'm ready."
+    ],
+    "anyLink": true,
+    "donePages": [
+     "A new era dawns!",
+     "May the blessings of starlight be with you"
+    ],
+    "tele": {
+     "x": 143209,
+     "y": 43968,
+     "z": -3038,
+     "r": 600,
+     "note": "Caradine teleports to the Lady of the Lake on this event: landing here right after MY teleporting click = cond 2 (engine v23 TELEPROOF-2; the live landing was 65-300 from it)"
+    }
+   },
+   "note": "31740-6 (cond 1 again, e.g. the start dialog stopped after 31740-3) \"I'm ready.\" -> 31740-5: setCond 2 + teleport"
+  },
+  {
+   "from": [
+    2
+   ],
+   "to": "end",
+   "end": "one-time",
+   "trigger": {
+    "type": "event",
+    "npcs": [
+     31745
+    ],
+    "events": [
+     "31745-5.html"
+    ],
+    "links": [
+     "\"I've been waiting to meet you, too.\"",
+     "I've been waiting to meet you, too.",
+     "\"Who are you and why are you here?\"",
+     "Who are you and why are you here?",
+     "\"I will with my entire body and soul.\"",
+     "I will with my entire body and soul.",
+     "\"Of course. As you wish.\"",
+     "Of course. As you wish."
+    ],
+    "anyLink": true,
+    "donePages": [
+     "You and I will open a new future for this world",
+     "May you be eternally blessed"
+    ]
+   },
+   "gives": [
+    {
+     "id": 7694,
+     "count": 1
+    }
+   ],
+   "exp": 93836,
+   "sp": 0,
+   "note": "31745-1 -> 2 -> 3 -> 4 -> 31745-5: Noblesse (setNoble), Noblesse Tiara 7694, 93836 exp, Mimir's Elixir cast, exitQuest one-time"
+  }
+ ],
+ "drops": [],
+ "partyGate": false,
+ "partyGateWhy": "owner 2026-11-06 after the live run: the quest ends with the Lady dialog and the Tiara - the leader must not take the whole party back (Lady -> Goddard -> Lady) for a member that missed his Caradine talk; engine v23: the run ends, the members not finished are named (!quest 247 solo <name>)",
+ "kills": [],
+ "steps": [
+  {
+   "cond": 0,
+   "title": "Caradine (Goddard): accept - Q246 done, subclass active, level 75+ (Caradine's Letter 7679 taken); the same dialog teleports to the Lady of the Lake (cond 2)",
+   "talk": [
+    31740
+   ]
+  },
+  {
+   "cond": 1,
+   "title": "Caradine again: \"I'm ready.\" -> teleport to the Lady of the Lake (cond 2)",
+   "talk": [
+    31740
+   ]
+  },
+  {
+   "cond": 2,
+   "title": "Lady of the Lake (west of the Aden Coliseum): 4 links -> Noblesse + Noblesse Tiara, end",
+   "talk": [
+    31745
+   ]
+  }
+ ],
+ "rewards": {
+  "final": [
+   {
+    "trigger": {
+     "type": "event",
+     "npcs": [
+      31745
+     ]
+    },
+    "conds": [
+     2
+    ],
+    "exp": 93836,
+    "sp": 0,
+    "items": [
+     {
+      "name": "Noblesse Tiara",
+      "id": 7694,
+      "count": 1
+     }
+    ],
+    "noble": true
+   }
+  ]
+ },
+ "parse": {
+  "status": "full",
+  "reasons": [],
+  "by": "claude 2026-11-06 from L2J Q00247_PossessorOfAPreciousSoul4 (Shagooh/l2j-server-datapack)"
+ },
+ "note": "Two NPCs, no hunt. Caradine's last \"I'm ready.\" TELEPORTS the character to the Lady of the Lake; in party mode every member talks to Caradine itself (qePartyTalk) and is teleported itself. Engine v22 TELEPROOF: trigger.tele = standing at the landing proves cond 2 (the quest API is blind and Caradine's Letter is no quest item). L2Toggle pages of this quest not seen live yet (anyLink everywhere)."
+}
