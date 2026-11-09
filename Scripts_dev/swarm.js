@@ -531,7 +531,7 @@ const CONFIG = {
     },
     checkEveryMs: 10000,           // hvor tit hvert vindue tjekker egne buffs
     warnBelowSec: 300,             // "ved at miste buffs": under 5 min tilbage
-    minLongBuffs: 10,              // færre buffs med > warnBelowSec tilbage -> rebuff
+    minLongBuffs: 9,               // MINBUFFS9-2026-11-06 (owner: board scheme gives 9; was 10) færre buffs med > warnBelowSec tilbage -> rebuff
     pageTimeoutMs: 5000,           // max ventetid på en board-side
     // Rotation (styres af lederens vindue): ÉN ad gangen bryder ud af kamp og
     // buffer, mens resten beskytter ham (angriber mobs der slår på ham).
