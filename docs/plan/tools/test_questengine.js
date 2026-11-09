@@ -301,7 +301,8 @@ console.log('5. sweep over every quest record');
   }
   const dlg = src.slice(src.indexOf('async function qeDialog('), src.indexOf('async function qeDoTalk('));
   ok(/await qeStayInFront\(ref\);\s*\/\/ QUESTREACH/.test(dlg) && /lostRetry = 1; await qeStayInFront\(ref, true\);/.test(dlg) && /a\.act !== 'turnin'/.test(dlg), 'qeDialog: in front of the NPC before every quest link; no page = back in front + the same link once more (never a hand-in)');
-  ok(/const cu = qeCatchUpPick\(s, qeMatesFresh\(q\)/.test(src) && /started: !!s\.started, need:/.test(src), 'qeRun (party leader) takes members that are behind to their NPC first; members report started + cond');
+  // PARTYGATE-2026-11-04: the leader's catch-up is qePartyPick now (talk AND hunt steps of the member furthest behind, escort after the leader's own end)
+  ok(/const pk = (?:q\.partyGate === false \? null : )?qePartyPick\(escort \? \{ done: true \} : \{ started: s\.started, cond: s\.cond \}, mates, cuTried, 3\)/.test(src) && /started: !!s\.started, need:/.test(src), 'qeRun (party leader) takes members that are behind through their step first (PARTYGATE); members report started + cond');
 }
 console.log(`\n${fails ? 'FAILED' : 'ALL OK'}: ${oks} ok, ${fails} failed`);
 process.exit(fails ? 1 : 0);
