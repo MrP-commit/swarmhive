@@ -63,3 +63,18 @@
 .l2d-hr .t { grid-column: 1 / -1; color: var(--muted); font-size: 11px; }
 .l2d-g { display: inline-flex; align-items: center; gap: 1px; }
 .l2d-g img { width: 20px; height: 20px; border: 1px solid #000; }
+
+/* L2DAYMAX-2026-11-09: top line (maximum exchange + collect in Giran) and the one toggle for the old sections */
+.l2d-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-bottom: 8px; border-color: #8c7330; }
+.l2d-maxl { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; flex: 1 1 420px; min-width: 0; }
+.l2d-maxt { display: grid; gap: 2px; min-width: 0; flex: 1 1 260px; }
+.l2d-maxt > b { color: #fff3c4; font-size: var(--fs-em); }
+.l2d-maxt .muted { font-size: var(--fs-cap); overflow-wrap: anywhere; }
+.l2d-maxt .muted b { color: #fff3c4; font-weight: 700; }
+.l2d-gath { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; flex: 0 1 auto; min-width: 0; }
+.l2d-gath .muted { font-size: var(--fs-cap); }
+.l2d-top button:disabled { opacity: .45; cursor: default; }
+.l2d-more { display: flex; align-items: center; gap: 6px; width: 100%; margin: 0 0 8px; padding: 6px 10px; border: 1px solid var(--line2); background: rgba(0, 0, 0, .25); color: inherit; cursor: pointer; text-align: left; }
+.l2d-more:hover { background: rgba(255, 255, 255, .04); }
+.l2d-more .ar { width: 1em; color: #e8c55a; }
+.l2d-grid[hidden] { display: none; }

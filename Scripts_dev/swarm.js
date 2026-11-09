@@ -25210,9 +25210,11 @@ setInterval(() => {
     const rows = []; let sig = '';
     Inventory.forEach(it => { const r = { id: num(it.Id), objId: num(it.objId), name: String(it.Name || ''), count: Math.max(1, num(it.Count)), eq: !!it.IsEquiped, q: !!(it.IsQuest || it.IsQuestItem || qeProtected(num(it.Id))) };
       try { r.type = String(it.Type || ''); } catch (e) { } rows.push(r); sig += r.objId + ':' + r.count + (r.eq ? 'e' : '') + ','; });
+    let lim = 0; try { lim = num(Me.InventoryLimit); } catch (e) { }                 // TRADESLOTS-2026-11-09: the game's slot limit for the Trade page
+    sig += 'L' + lim;
     if (sig === hovBagRep.sig) return;
     hovBagRep.sig = sig;
-    File.WriteAllText(`${SWARM_ROOT}\\Logs\\bag_${Me.Name}.json`, JSON.stringify({ at: new Date().toISOString(), name: Me.Name, items: rows }));
+    File.WriteAllText(`${SWARM_ROOT}\\Logs\\bag_${Me.Name}.json`, JSON.stringify({ at: new Date().toISOString(), name: Me.Name, lim, items: rows }));
   } catch (e) { }
 }, 120000);
 /** where is `name` now: its own answer (fresh, up to 4 s), else its swarm.pos report */
@@ -28279,6 +28281,49 @@ function l2dayLink(rows, word, mult) {
   if (!mult || mult === 'x1') return row[0];
   return row.find(l => String(l.text).trim().toLowerCase() === String(mult).toLowerCase()) || null;
 }
+// L2DAYMAX-2026-11-09 (owner: one "Use maximum amount of letters." button on the L2Day page; logic = Claude's l2day.js v1.4, which
+// exchanged 690 words in ~3 min on 2026-10-24): the EXACT best split of the stock over the four words - most words, on a tie the most
+// letters used (weights = words of equal worth). Exhaustive over all words but the one with the largest bound (filled last), ~0.1-1 s.
+// stock = { itemId: count } -> { counts: { LineageII: n, ... }, words, letters }
+function l2dayBest(stock, weights) {
+  const words = Object.keys(L2DAY_WORDS), ids = Object.values(L2DAY_LETTER), K = ids.length, m = words.length;
+  const need = new Int32Array(m * K), nz = [], val = new Float64Array(m), len = new Int32Array(m), rem = new Int32Array(K);
+  words.forEach((w, i) => { const n = l2dayNeed(w, 1); ids.forEach((id, l) => { need[i * K + l] = n[id] || 0; }); nz.push(ids.map((_, l) => l).filter(l => need[i * K + l] > 0));
+    len[i] = L2DAY_WORDS[w].length; const wt = weights && weights[w] != null ? Number(weights[w]) : 1; val[i] = Math.max(0, wt) * 1000 + len[i]; });
+  ids.forEach((id, l) => { rem[l] = Math.max(0, Math.floor(Number((stock || {})[id]) || 0)); });
+  const bound = (i) => { const z = nz[i]; if (!z.length) return 0; let b = 2147483647; for (let t = 0; t < z.length; t++) { const q = (rem[z[t]] / need[i * K + z[t]]) | 0; if (q < b) b = q; } return b; };
+  const order = words.map((_, i) => i).filter(i => val[i] >= 1000).sort((a, b) => bound(a) - bound(b));
+  const x = new Int32Array(m), bestX = new Int32Array(m); let best = -1;
+  const rec = (d, acc) => {
+    const i = order[d];
+    if (d === order.length - 1) { const b = bound(i), v = acc + b * val[i]; if (v > best) { best = v; x[i] = b; bestX.set(x); x[i] = 0; } return; }
+    const ub = bound(i), z = nz[i], oi = i * K;
+    if (d === order.length - 2) {                                       // innermost: the last word filled without touching rem
+      const j = order[d + 1], zj = nz[j], oj = j * K;
+      for (let n = 0; n <= ub; n++) {
+        let b = 2147483647; for (let t = 0; t < zj.length; t++) { const l = zj[t], q = ((rem[l] - n * need[oi + l]) / need[oj + l]) | 0; if (q < b) b = q; }
+        const v = acc + n * val[i] + b * val[j]; if (v > best) { best = v; x[i] = n; x[j] = b; bestX.set(x); x[j] = 0; }
+      }
+      x[i] = 0; return;
+    }
+    for (let n = 0; n <= ub; n++) { x[i] = n; rec(d + 1, acc + n * val[i]); for (let t = 0; t < z.length; t++) rem[z[t]] -= need[oi + z[t]]; }
+    for (let t = 0; t < z.length; t++) rem[z[t]] += need[oi + z[t]] * (ub + 1);
+    x[i] = 0;
+  };
+  if (order.length) rec(0, 0);
+  const counts = {}; let nw = 0, nl = 0;
+  words.forEach((w, i) => { counts[w] = bestX[i]; nw += bestX[i]; nl += bestX[i] * len[i]; });
+  return { counts, words: nw, letters: nl };
+}
+/** the button for one click: the biggest multiplier that fits what is still to do and the sets in the bag (x10 / x5 / x1), null = none */
+function l2dayMultFor(todo, sets) { const c = Math.min(Number(todo) || 0, Number(sets) || 0); return c >= 10 ? 'x10' : c >= 5 ? 'x5' : c >= 1 ? 'x1' : null; }
+/** whole words of <word> whose letters left the bag between two bagCounts() maps (what a click REALLY exchanged, whatever the button said) */
+function l2daySetsGone(before, after, word) {
+  const n = l2dayNeed(word, 1), ids = Object.keys(n); if (!ids.length) return 0;
+  return Math.max(0, ids.reduce((m, id) => Math.min(m, Math.floor(((Number((before || {})[id]) || 0) - (Number((after || {})[id]) || 0)) / n[id])), Infinity));
+}
+/** clicks for a plan (x10 / x5 / x1 split of every word) */
+function l2dayClicks(counts) { return Object.values(counts || {}).reduce((t, n) => t + Math.floor(n / 10) + Math.floor((n % 10) / 5) + (n % 5), 0); }
 // L2DAY-PURE-END
 var L2DAY = { busy: false, pending: [] };
 /** L2DAY: the letters collector exchanges <times> × <word> at <mult> at Louie the Cat. Letters missing in the bag come out of the clan warehouse
@@ -28326,6 +28371,87 @@ async function l2dayRun(wordIn, timesIn, multIn, seq) {
     st.done++; save();
   }
   return end('done', n < times ? `letters only for ${n} of ${times}` : 'finished');
+}
+/** L2DAYMAX-2026-11-09: '!l2day max' (dashboard L2Day page, "Use maximum amount of letters."): the collector exchanges the BEST split of
+ *  all its letters (bag + clan warehouse, l2dayBest) - word by word, each click with the biggest button that fits (x10 / x5 / x1), every
+ *  click measured by the whole words that left the bag (l2daySetsGone), re-planned from the bag after every word. A running letters
+ *  hand-over to me is waited for first (10 min max) so its letters count. Errand 'l2day' = follow off / nobody pulls me away meanwhile.
+ *  Logs: every click -> Logs/l2day_rewards.log (run: 'max', words = what it really exchanged), the run -> Logs/l2day_state.json. */
+function l2dayBagLetters() { const b = bagCounts(), o = {}; Object.values(L2DAY_LETTER).forEach(id => { o[id] = num(b[id]) || 0; }); return o; }
+function l2dayClanWh() {
+  const o = {}; try { const c = JSON.parse(File.ReadAllText(`${SWARM_ROOT}\\Logs\\clan_state.json`));
+    ((c.warehouse && c.warehouse.items) || []).forEach(r => { const id = num(r.id); if (Object.values(L2DAY_LETTER).includes(id)) o[id] = (o[id] || 0) + (num(r.count) || 1); }); } catch (e) { }
+  return o;
+}
+function l2dayPlanText(p) { return Object.keys(L2DAY_WORDS).map(w => `${w} ${p.counts[w] || 0}`).join(', ') + ` = ${p.words} words`; }
+async function l2dayMaxRun(seq) {
+  const STF = `${SWARM_ROOT}\\Logs\\l2day_state.json`, LOGF = `${SWARM_ROOT}\\Logs\\l2day_rewards.log`;
+  const st = { word: 'max', mult: 'auto', times: 0, done: 0, clicks: 0, state: 'running', msg: '', plan: '', startedAt: new Date().toISOString(), got: {} };
+  const save = () => { try { File.WriteAllText(STF, JSON.stringify(Object.assign(st, { at: new Date().toISOString(), pending: L2DAY.pending.map(p => `${p.word} ${p.times} ${p.mult || 'x1'}`) }))); } catch (e) { } };
+  const end = (state, msg) => { st.state = state; st.msg = String(msg || '').slice(0, 200); save(); note(`[l2day] max: ${st.done}/${st.times} words in ${st.clicks} clicks — ${st.msg}`, true); return `max: ${st.done}/${st.times} words — ${st.msg}`; };
+  if (orderReplaced(seq)) return end('stopped', 'a newer order came before it started');
+  save();
+  if (!ijInGiran()) return end('failed', 'not in Giran');
+  let errand = false;
+  try {
+    try { errandStart('l2day', 45 * 60000); errand = true; Options.ActiveFollow = false; } catch (e) { }
+    // letters still coming to me (the "Collect letters" button / the automatic hand-over): let that trade end first
+    for (const t0 = now(); (HOV.busy || HOV.host.ctl || tradeState) && now() - t0 < 600000;) {
+      if (orderReplaced(seq)) return end('stopped', 'a newer order came');
+      st.msg = 'waiting for a letters hand-over to end'; save(); await sleep(3000);
+    }
+    // the plan over bag + clan warehouse; what the bag lacks for it comes out of the clan warehouse first
+    const bag0 = l2dayBagLetters(), wh = l2dayClanWh(), stock = {};
+    Object.values(L2DAY_LETTER).forEach(id => { stock[id] = (bag0[id] || 0) + (wh[id] || 0); });
+    const p0 = l2dayBest(stock);
+    if (!p0.words) return end('failed', 'not enough letters for one word');
+    const need = {}; Object.keys(p0.counts).forEach(w => { const n = l2dayNeed(w, p0.counts[w]); Object.keys(n).forEach(id => { need[id] = (need[id] || 0) + n[id]; }); });
+    const miss = Object.keys(need).map(id => ({ id: num(id), count: Math.max(0, need[id] - (bag0[id] || 0)) })).filter(x => x.count > 0);
+    if (miss.length) {
+      st.msg = `taking ${miss.reduce((a, x) => a + x.count, 0)} letters out of the clan warehouse`; save();
+      try { const r = await whTake('clan', miss, 'L2Day max', {}); st.whTake = String((r && r.msg) || '').slice(0, 160); } catch (e) { logError('l2day max whTake', e); }
+    }
+    let plan = l2dayBest(l2dayBagLetters());
+    st.times = plan.words; st.plan = l2dayPlanText(plan); st.msg = `plan ${st.plan} (~${l2dayClicks(plan.counts)} clicks)`; save();
+    if (!plan.words) return end('failed', 'not enough letters in the bag for one word' + (st.whTake ? ' (warehouse: ' + st.whTake + ')' : ''));
+    const louie = () => { let r = null; try { snapNpcs().forEach(x => { if (!r && String(x.Name) === 'Louie the Cat') r = x.ref; }); } catch (e) { } return r; };
+    let fails = 0;
+    for (let step = 0; step < 30 && plan.words > 0; step++) {
+      const W = Object.keys(L2DAY_WORDS).find(w => (plan.counts[w] || 0) > 0);
+      let todo = plan.counts[W], moved = 0;
+      while (todo > 0) {
+        if (orderReplaced(seq)) return end('stopped', 'a newer order came');
+        if (Me.IsDead) return end('failed', 'dead');
+        const mult = l2dayMultFor(todo, l2dayPossible(bagCounts(), W)); if (!mult) break;
+        let npc = louie();
+        if (!npc) { try { const pl = giranPlaceNear(82153, 148390); await ijGiranGo(pl && pl.d < 1500 ? pl.pl : 'start'); } catch (e) { } npc = louie(); }
+        if (!npc) return end('failed', 'Louie the Cat is not in sight');
+        const html = await openNpc(npc); if (!html) return end('failed', 'Louie the Cat did not answer');
+        try { File.WriteAllText(`${SWARM_ROOT}\\Logs\\l2day_page.html`, String(html)); } catch (e) { }
+        const rows = String(html).split(/<tr\b/i).slice(1).map(r => npcLinks(r));
+        const link = l2dayLink(rows, W, mult); if (!link) return end('failed', `no "${W}" ${mult} link on Louie's page`);
+        const b0 = bagCounts(), t0 = now(), M = L2DAY_MULT[mult];
+        // L2Toggle closes Louie's window after an exchange (no answer page): the bag is the answer, not a page wait
+        try { Send.ReqBypassToServer(link.cmd, true); } catch (e) { logError('l2day max click', e); }
+        const gone = () => l2daySetsGone(b0, bagCounts(), W);
+        while (now() - t0 < 5000 && gone() < 1) await sleep(150);
+        if (gone() >= 1) { const t1 = now(); while (now() - t1 < 1200 && gone() < M) await sleep(150); await sleep(500); }   // the rewards land right after the letters
+        const got = gone(), d = l2dayDiff(b0, bagCounts()), said = lastSysMsg && lastSysMsg.at >= t0 ? String(lastSysMsg.text).slice(0, 160) : '';
+        const logMult = got === 10 ? 'x10' : got === 5 ? 'x5' : got === 1 ? 'x1' : mult;
+        try { appendShared(LOGF, JSON.stringify({ at: new Date().toISOString(), by: Me.Name, run: 'max', word: W, mult: logMult, words: got, used: d.used, rewards: d.got, msg: said }) + '\r\n'); } catch (e) { }
+        if (got > 0) {
+          if (got !== M) note(`[l2day] max: ${W} ${mult} exchanged ${got} words`, true);
+          fails = 0; todo -= got; moved += got; st.done += got; st.clicks++;
+          d.got.forEach(g => { if (!Object.values(L2DAY_LETTER).includes(g.id)) st.got[g.name] = (st.got[g.name] || 0) + g.count; });
+          st.msg = `${W} ${mult} (${st.done}/${st.times})`; save();
+        } else if (++fails >= 3) return end('failed', `${W} ${mult}: no letters left the bag 3 times in a row${said ? ' - server: ' + said : ''}`);
+        await sleep(250 + Math.floor(Math.random() * 350));
+      }
+      if (!moved) break;                                                   // no progress on this word: never loop on it
+      plan = l2dayBest(l2dayBagLetters());                                 // what is really left (a button may give more / fewer)
+    }
+    return end('done', `${st.done} words in ${st.clicks} clicks` + (plan.words ? ` - ${plan.words} more possible (stopped: no progress)` : ''));
+  } finally { if (errand) { try { errandEnd('l2day'); } catch (e) { } } }
 }
 // CLANUNIT-2026-10-30 (owner: "So we are missing the sub units in order to put more clan members in" / "It should create the royal Guards inside
 // the clan page"): "!clanunit guard|knight <name> <captain>" (clan leader) = village master -> Clan. -> "Manage Guards." / "Manage Knights." ->
@@ -48516,10 +48642,12 @@ function handleSay(charName, text, messageType) {
     if (Me.Name !== (rcv || clanLeaderName())) return;
     // the dashboard queue marks !l2day done once dispatched, so the next one can arrive while a run goes on: it waits here, in order
     // (each keeps the order number it came with: an owner order in between stops it and every one queued before that order)
-    L2DAY.pending.push({ word: parts[1], times: parts[2], mult: parts[3], seq: orderState.userSeq });
+    // L2DAYMAX-2026-11-09: '!l2day max' = the best split of all letters, buttons chosen automatically (dashboard: "Use maximum amount of letters.")
+    if (String(parts[1] || '').toLowerCase() === 'max') L2DAY.pending.push({ max: true, word: 'max', times: 'all', mult: 'auto', seq: orderState.userSeq });
+    else L2DAY.pending.push({ word: parts[1], times: parts[2], mult: parts[3], seq: orderState.userSeq });
     if (L2DAY.busy) { note(`l2day: queued after the running exchange (${L2DAY.pending.length} waiting)`, true); return; }
     L2DAY.busy = true;
-    (async () => { while (L2DAY.pending.length) { const j = L2DAY.pending.shift(); try { note('[l2day] ' + await l2dayRun(j.word, j.times, j.mult, j.seq), true); } catch (e) { logError('!l2day', e); } } })()
+    (async () => { while (L2DAY.pending.length) { const j = L2DAY.pending.shift(); try { note('[l2day] ' + (j.max ? await l2dayMaxRun(j.seq) : await l2dayRun(j.word, j.times, j.mult, j.seq)), true); } catch (e) { logError('!l2day', e); } } })()
       .finally(() => { L2DAY.busy = false; });
     return;
   }

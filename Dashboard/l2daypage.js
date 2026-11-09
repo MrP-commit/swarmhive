@@ -3,10 +3,16 @@
 // I want to see the rewards for delivering the letters nicely like look from raidboss etc.").
 // Data: GET /api/l2day (Dashboard/l2day_api.js). Queue: POST /api/autoqueue { cmd: '!l2day <word> <n> <x1|x5|x10>', targets: ['char:<collector>'] }
 // (the collector walks to Louie the Cat on the Giran square; swarm.js l2dayRun logs every reward). index.html globals: api, esc, iconUrl, uiConfirm.
+// L2DAYMAX-2026-11-09 (owner): above the old sections one line - "Use maximum amount of letters." + one button ('!l2day max' to the collector:
+// swarm.js l2dayMaxRun, exact best split, x10 / x5 / x1 chosen per click, every click checked by the letters that left the bag) and a button that
+// sends '!letters' to every character in Giran that still holds letters (the normal letters hand-over to the collector). The old sections sit
+// behind ONE toggle, closed by default (remembered per browser). Characters' positions: the dashboard's own STATE (/api/state).
 (function () {
   'use strict';
   const SEC = 'tab-l2daypage';
-  const S = { open: false, d: null, timer: 0, form: {}, tab: 'all' };
+  const S = { open: false, d: null, timer: 0, form: {}, tab: 'all', more: false, busy: false };
+  const MORE_KEY = 'swarm.l2day.more';
+  try { S.more = localStorage.getItem(MORE_KEY) === '1'; } catch (e) { }
   const $id = (i) => document.getElementById(i);
   const h = (s) => (typeof esc === 'function' ? esc(s) : String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
   const ico = (p) => (typeof iconUrl === 'function' ? iconUrl(p) : '/icons/' + p + '.png');
@@ -63,6 +69,66 @@
       <div class="l2d-rw"><div class="rpb-dg"><div class="gh"><span>Rewards (${fmt(ex)} exchange${ex === 1 ? '' : 's'})</span><span class="muted">total · how often · share of exchanges</span></div>${rows || '<div class="l2d-note">nothing yet</div>'}</div>
         <div class="rpb-dg"><div class="gh"><span>Latest exchanges</span></div><div class="l2d-hist">${hist}</div></div></div>`;
   }
+  // ---- L2DAYMAX: the exact best split (same algorithm as swarm.js l2dayBest; test_l2day_max.js checks they agree)
+  /** stock { id: n }, words [{ word, cost: { id: n } }] -> { counts: { word: n }, words, letters } (most words, tie: most letters) */
+  function bestPlan(stock, words) {
+    const ids = [...new Set(words.flatMap(w => Object.keys(w.cost)))], K = ids.length, m = words.length;
+    const need = new Int32Array(m * K), nz = [], val = new Float64Array(m), len = new Int32Array(m), rem = new Int32Array(K);
+    words.forEach((w, i) => { ids.forEach((id, l) => { need[i * K + l] = Number(w.cost[id]) || 0; }); nz.push(ids.map((_, l) => l).filter(l => need[i * K + l] > 0));
+      len[i] = Object.values(w.cost).reduce((a, b) => a + Number(b), 0); val[i] = 1000 + len[i]; });
+    ids.forEach((id, l) => { rem[l] = Math.max(0, Math.floor(Number((stock || {})[id]) || 0)); });
+    const bound = (i) => { const z = nz[i]; if (!z.length) return 0; let b = 2147483647; for (let t = 0; t < z.length; t++) { const q = (rem[z[t]] / need[i * K + z[t]]) | 0; if (q < b) b = q; } return b; };
+    const order = words.map((_, i) => i).sort((a, b) => bound(a) - bound(b));
+    const x = new Int32Array(m), bestX = new Int32Array(m); let best = -1;
+    const rec = (d, acc) => {
+      const i = order[d];
+      if (d === order.length - 1) { const b = bound(i), v = acc + b * val[i]; if (v > best) { best = v; x[i] = b; bestX.set(x); x[i] = 0; } return; }
+      const ub = bound(i), z = nz[i], oi = i * K;
+      if (d === order.length - 2) {
+        const j = order[d + 1], zj = nz[j], oj = j * K;
+        for (let n = 0; n <= ub; n++) { let b = 2147483647; for (let t = 0; t < zj.length; t++) { const l = zj[t], q = ((rem[l] - n * need[oi + l]) / need[oj + l]) | 0; if (q < b) b = q; }
+          const v = acc + n * val[i] + b * val[j]; if (v > best) { best = v; x[i] = n; x[j] = b; bestX.set(x); x[j] = 0; } }
+        x[i] = 0; return;
+      }
+      for (let n = 0; n <= ub; n++) { x[i] = n; rec(d + 1, acc + n * val[i]); for (let t = 0; t < z.length; t++) rem[z[t]] -= need[oi + z[t]]; }
+      for (let t = 0; t < z.length; t++) rem[z[t]] += need[oi + z[t]] * (ub + 1);
+      x[i] = 0;
+    };
+    if (m) rec(0, 0);
+    const counts = {}; let nw = 0, nl = 0; words.forEach((w, i) => { counts[w.word] = bestX[i]; nw += bestX[i]; nl += bestX[i] * len[i]; });
+    return { counts, words: nw, letters: nl };
+  }
+  const clicksOf = (counts) => Object.values(counts).reduce((t, n) => t + Math.floor(n / 10) + Math.floor((n % 10) / 5) + (n % 5), 0);
+  // Giran = swarm.js ijInGiran's box (town square + streets)
+  const inGiran = (c) => c && Number(c.x) >= 75900 && Number(c.x) <= 85100 && Number(c.y) >= 144800 && Number(c.y) <= 152400;
+  const liveChars = () => { try { return (typeof STATE !== 'undefined' && STATE && Array.isArray(STATE.chars)) ? STATE.chars : []; } catch (e) { return []; } };
+  /** characters (not the collector) that report from Giran right now and hold letters: [{ name, total }] */
+  function giverList() {
+    const d = S.d, live = liveChars(), byName = {}; live.forEach(c => { byName[String(c.name).toLowerCase()] = c; });
+    return d.members.filter(m => { const c = byName[String(m.name).toLowerCase()]; return c && Number(c.ageSec) <= 60 && inGiran(c); }).map(m => ({ name: m.name, total: m.total }));
+  }
+  function runningNow() {
+    const st = S.d.state, fresh = st && st.state === 'running' && Date.now() - Date.parse(st.at || 0) <= 10 * 60000;
+    const queued = S.d.queue.some(x => !/^(done|failed|cancelled|replaced|timeout)/.test(String(x.state)));
+    return fresh ? 'an exchange is running' : queued ? 'an exchange is queued' : '';
+  }
+  function topLine() {
+    const d = S.d, p = bestPlan(d.stock.total, d.words), busy = runningNow();
+    const col = liveChars().find(c => String(c.name).toLowerCase() === String(d.collector).toLowerCase());
+    const colWhere = !col ? 'not reporting' : Number(col.ageSec) > 60 ? 'not reporting' : inGiran(col) ? '' : 'not in Giran';
+    const plan = p.words ? Object.keys(p.counts).filter(w => p.counts[w]).map(w => `${h(w)} <b>${fmt(p.counts[w])}</b>`).join(' · ') + ` = <b>${fmt(p.words)}</b> words, ${fmt(p.letters)} letters, ~${fmt(clicksOf(p.counts))} clicks` : 'not enough letters for one word';
+    const maxWhy = !p.words ? 'not enough letters' : busy ? busy : '';
+    const giv = giverList(), gl = giv.reduce((a, g) => a + g.total, 0);
+    const gWhy = colWhere ? `${d.collector} is ${colWhere}` : !giv.length ? 'nobody in Giran holds letters' : '';
+    S.plan = p; S.givers = giv;
+    return `<div class="box l2d-top">
+      <div class="l2d-maxl"><div class="l2d-maxt"><b>Use maximum amount of letters.</b><span class="muted">${plan}</span>${maxWhy && p.words ? `<span class="muted">${h(maxWhy)}</span>` : ''}</div>
+        <button type="button" class="uk-btn l2d-maxgo" data-l2dmax="1"${maxWhy || S.busy ? ' disabled' : ''} title="${h(maxWhy || `${d.collector} exchanges everything: the best split, x10 / x5 / x1 chosen per click`)}">Exchange all${p.words ? ' (' + fmt(p.words) + ')' : ''}</button></div>
+      <div class="l2d-gath"><button type="button" class="uk-btn" data-l2dgather="1"${gWhy || S.busy ? ' disabled' : ''} title="${h(gWhy || giv.map(g => g.name + ' ' + fmt(g.total)).join(', '))}">Collect letters in Giran${giv.length ? ` (${giv.length} char${giv.length === 1 ? '' : 's'} · ${fmt(gl)} letters)` : ''}</button>
+        <span class="muted">${h(gWhy || 'to ' + d.collector + ': ' + giv.map(g => g.name).join(', '))}</span></div>
+    </div>`;
+  }
+
   function section() {
     let s = $id(SEC); if (s) return s;
     s = document.createElement('section'); s.id = SEC; s.className = 'win l2d'; s.hidden = true;
@@ -74,7 +140,9 @@
   function render(err) {
     section(); const b = $id('l2dBody'); if (!b) return;
     if (!S.d) { b.innerHTML = `<div class="box l2d-note">${h(err || 'Loading…')}</div>`; return; }
-    b.innerHTML = `<div class="l2d-grid">
+    b.innerHTML = `${topLine()}
+      <button type="button" class="l2d-more" data-l2dmore="1" aria-expanded="${S.more ? 'true' : 'false'}"><span class="ar">${S.more ? '▾' : '▸'}</span>${S.more ? 'Hide' : 'Show'} exchange by word, queue, rewards and letters</button>
+      <div class="l2d-grid"${S.more ? '' : ' hidden'}>
       <div class="box l2d-ex"><h3>Exchange <span class="muted">by ${h(S.d.collector)}, one run at a time (queue)</span></h3><div class="l2d-words">${wordCards()}</div></div>
       <div class="box l2d-qbox"><h3>Queue</h3>${queueBox()}</div>
       <div class="box l2d-rbox"><h3>Rewards</h3>${rewardsBox()}</div>
@@ -85,6 +153,9 @@
   async function onClick(ev) {
     const t = ev.target.closest('button'); if (!t) return;
     if (t.dataset.l2dt) { S.tab = t.dataset.l2dt; render(); return; }
+    if (t.dataset.l2dmore) { S.more = !S.more; try { localStorage.setItem(MORE_KEY, S.more ? '1' : '0'); } catch (e) { } render(); return; }
+    if (t.dataset.l2dmax) { await queueMax(); return; }
+    if (t.dataset.l2dgather) { await gather(); return; }
     if (t.dataset.l2dm) { const [w, m] = t.dataset.l2dm.split('|'); S.form[w].mult = m; render(); return; }
     if (t.dataset.l2dq) {
       const w = t.dataset.l2dq, f = S.form[w], word = S.d.words.find(x => x.word === w), m = MULT[f.mult];
@@ -97,6 +168,28 @@
         flash(`Queued: ${w} ${f.mult} × ${f.n}${r.position ? ' (place ' + r.position + ')' : ''}.`); load();
       } catch (e) { flash('Not queued: ' + e.message, true); }
     }
+  }
+  const confirmFn = () => window.uiConfirm || (window.UIDialog && window.UIDialog.confirm);
+  async function queueMax() {
+    const d = S.d, p = S.plan; if (!p || !p.words) { flash('Not enough letters for one word.', true); return; }
+    const cf = confirmFn(); if (!cf) { flash('The confirm dialog is missing (uidialog.js) - nothing queued.', true); return; }
+    const split = Object.keys(p.counts).filter(w => p.counts[w]).map(w => `${w} ${p.counts[w]}`).join(', ');
+    if (!await cf({ title: `Exchange all letters (${fmt(p.words)} words)?`, body: `${d.collector} takes what his bag lacks out of the clan warehouse, walks to Louie the Cat and exchanges ${split} - each click with the biggest button that fits (x10 / x5 / x1), about ${fmt(clicksOf(p.counts))} clicks. Every click is checked by the letters that leave the bag and every reward is recorded here.`, confirmText: 'Exchange all' })) return;
+    S.busy = true; render();
+    try { const r = await api('/api/autoqueue', { method: 'POST', body: JSON.stringify({ cmd: '!l2day max', targets: ['char:' + d.collector], by: 'dashboard L2Day page (owner): maximum' }) });
+      if (!r || !r.ok) flash('Not queued: ' + ((r && r.error) || 'no answer'), true); else flash(`Queued: exchange all (${fmt(p.words)} words)${r.position ? ' (place ' + r.position + ')' : ''}.`);
+    } catch (e) { flash('Not queued: ' + e.message, true); }
+    S.busy = false; load();
+  }
+  async function gather() {
+    const d = S.d, giv = S.givers || []; if (!giv.length) { flash('Nobody in Giran holds letters.', true); return; }
+    const cf = confirmFn(); if (!cf) { flash('The confirm dialog is missing (uidialog.js) - nothing sent.', true); return; }
+    if (!await cf({ title: `Collect letters from ${giv.length} character${giv.length === 1 ? '' : 's'}?`, body: `${giv.map(g => `${g.name} (${fmt(g.total)})`).join(', ')} walk over to ${d.collector} in Giran and trade him their letters (the letters hand-over). Wait until they are done before you exchange.`, confirmText: 'Collect' })) return;
+    S.busy = true; render();
+    try { const r = await api('/api/command', { method: 'POST', body: JSON.stringify({ cmd: '!letters', targets: ['chars:' + giv.map(g => g.name).join(',')], by: 'dashboard L2Day page (owner): collect in Giran' }) });
+      if (!r || r.error) flash('Not sent: ' + ((r && r.error) || 'no answer'), true); else flash(`Sent to ${giv.map(g => g.name).join(', ')}: hand the letters to ${d.collector}.`);
+    } catch (e) { flash('Not sent: ' + e.message, true); }
+    S.busy = false; load();
   }
   function open() { S.open = true; section().hidden = false; load(); clearInterval(S.timer); S.timer = setInterval(() => { if (S.open && !document.hidden && !document.activeElement.matches('[data-l2dn]')) load(); }, 10000); }
   function close() { if (!S.open) return; S.open = false; clearInterval(S.timer); const s = $id(SEC); if (s) s.hidden = true; }

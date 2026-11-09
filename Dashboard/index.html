@@ -714,6 +714,7 @@ html:not(.cc-ready) .ccsheetbtn { display: none; }
       <button data-tab="adena"><img class="gi" src="/icons/icon/etc_adena_i00.png" alt=""> Adena</button>
       <button data-tab="spoil" title="Which monsters the Bounty Hunters spoil, by their spoil drops"><img class="gi" src="/icons/icon/skill0254.png" alt=""> Spoil</button>
       <button data-tab="storage"><img class="gi" src="/icons/icon/etc_equip_item_box_i00.png" alt=""> Storage</button>
+      <button data-tab="mules" title="Characters whose bag and warehouse a gear-up also searches for the pieces it needs — and what they hold"><img class="gi" src="/icons/icon/skill1257.png" alt=""> Mules</button><!-- MULES-2026-11-06: Decrease Weight icon -->
       <button data-tab="market"><img class="gi" src="/icons/icon/etc_adena_i00.png" alt=""> Market</button>
       <button data-tab="sevensigns"><img class="gi" src="/icons/icon/accessory_lbracelet_of_dawn.png" alt=""> 7 Signs</button>
       <button data-tab="quests"><img class="gi" src="/icons/L2UI_CT1/crop/Icon_DF_MenuWnd_Quest.png" alt=""> Quests</button>
@@ -1234,6 +1235,7 @@ function route() {
   if (window.BoostPage && BoostPage.route(kind, arg)) return;                     // #/boost[/<Name>] BOOST-2026-11-05 (Dashboard/boostpage.js): the enchant tool
   if (window.AugmentPage && AugmentPage.route(kind, arg)) return;                 // #/augments[/<stone id>] (Dashboard/augmentpage.js)
   if (window.UpgradePage && kind !== 'upgrade') UpgradePage.close();              // UPGRADE 2026-10-25: gear upgrade orders, off on any other page
+  if (window.MulesPage && kind !== 'mules') MulesPage.close();                    // MULES-2026-11-06: #/mules[/<name>] gear-up mules (Dashboard/mulespage.js), off on any other page
   if (window.UpgradePage && UpgradePage.route(kind, arg)) return;                 // #/upgrade (Dashboard/upgradepage.js)
   if (window.CharPage && CharPage.route(kind, arg)) return;     // CHARPAGE 2026-10-09: #/char/<name> v2 (Dashboard/charpage.js); closes itself on other pages
   if (window.LiveParty && LiveParty.route(kind, arg)) return;   // LIVEPARTY 2026-10-09: #/live/<leader> (Dashboard/liveparty.js); #/live alone = raid live view
@@ -1253,6 +1255,7 @@ function route() {
   if (window.FundPage && FundPage.route(kind, arg)) return;     // ADENA 2026-10-12: #/adena cross-party adena rules (Dashboard/fundpage.js); closes itself on other pages
   if (window.MarketPage && MarketPage.route(kind, arg)) return;   // MARKET 2026-10-14: #/market player shops (Dashboard/marketpage.js)
   if (window.StoragePage && StoragePage.route(kind, arg)) return;
+  if (window.MulesPage && MulesPage.route(kind, arg)) return;   // MULES-2026-11-06 (the pages above close themselves first)
   if (window.AoePage && AoePage.route(kind, arg)) return;   // AOETEAM-2026-10-30: #/aoe[/<leader>] the AOE team page (Dashboard/aoepage.js)
   if (window.L2DayPage && L2DayPage.route(kind, arg)) return;   // L2DAY-2026-10-31: #/l2day the event letters + Louie the Cat exchange (Dashboard/l2daypage.js)
   if (window.SpoilPage && SpoilPage.route(kind, arg)) return;   // SPOIL 2026-10-19: #/spoil[/<leader>] which monsters the Bounty Hunters spoil (Dashboard/spoilpage.js); closes itself on other pages   // STORAGE 2026-10-13: #/storage warehouse settings + event letters (Dashboard/storagepage.js); closes itself on other pages
@@ -5376,6 +5379,7 @@ setInterval(() => { if (TAB === 'pc' && !document.hidden) loadSystem(); }, 15000
 <link rel="stylesheet" href="/marketpage.css"><script src="/marketpage.js"></script><!-- MARKET 2026-10-14 -->
 <link rel="stylesheet" href="/storagepage.css">
 <script src="/storagepage.js"></script>
+<link rel="stylesheet" href="/mulespage.css"><script src="/mulespage.js"></script><!-- MULES-2026-11-06: #/mules the characters a gear-up also searches (Dashboard/mulespage.js, served by mulespage_api.js) -->
 <link rel="stylesheet" href="/l2daypage.css"><script src="/l2daypage.js"></script><!-- L2DAY-2026-10-31: #/l2day (Dashboard/l2daypage.js, served by l2day_api.js) -->
 <link rel="stylesheet" href="/aoepage.css"><script src="/aoepage.js"></script><!-- AOETEAM-2026-10-30: #/aoe (Dashboard/aoepage.js, served by aoeteam_api.js) -->
 <link rel="stylesheet" href="/spoilpage.css"><script src="/spoilpage.js"></script><!-- SPOIL 2026-10-19: #/spoil (Dashboard/spoilpage.js, served by spoilpage_api.js) -->

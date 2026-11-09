@@ -101,6 +101,24 @@ check(D({ name: 'Q', x: 4000, y: 0, z: 0, town: '' }).act === 'walk' && D({ name
 check(H.hovRoleOf({ receiver: 'Q', givers: { A: {} } }, 'Q') === 'receiver' && H.hovRoleOf({ receiver: 'Q', givers: { A: {} } }, 'A') === 'giver' && H.hovRoleOf({ receiver: 'Q', givers: { A: {} } }, 'B') === '', 'roles');
 check(/gave 2 kinds to Q/.test(H.hovLine({ receiver: 'Q', given: [{ name: 'a', count: 1 }, { name: 'b', count: 3 }], failed: [{ name: 'c', why: 'x' }], skipped: [] })), 'result line');
 
+// ---- 1b) TRADESLOTS / GRADEFILTER (2026-11-09) ------------------------------------------------------------------------------
+{
+  const s1 = TL.trSlots(193, 0, 92), s2 = TL.trSlots(193, 0, 118), s3 = TL.trSlots(193, 300, 92), s4 = TL.trSlots(213, 0, 92);
+  check(s1.lim === 200 && s1.free === 7 && !s1.game && s1.lvl === 'bad' && s2.lim === 250 && s2.free === 57 && s2.lvl === '' && s3.lim === 300 && s3.game && s4.free === 0 && s4.over === 13,
+    'slots: 200 / dwarf 250 without the game limit, the game limit wins, over the limit = 0 free + over');
+  check(TL.trSlots(180, 200, 1).lvl === 'warn' && TL.trSlots(190, 200, 1).lvl === 'bad' && TL.trSlots(100, 200, 1).lvl === '', 'slots: warn <= 25 free, bad <= 10 free');
+  const B = TL.trBagRows([{ id: 57, objId: 1, count: 5 }, { id: 349, objId: 2, count: 1, equipped: true, type: 'Armor' }, { id: 7, objId: 3, count: 1, quest: true }, { id: 1864, objId: 4, count: 9 }], DATA);
+  check(B.used === 4, 'slots: used counts every entry (adena, worn, quest included)');
+  check(TL.trGrade('3') === 'B' && TL.trGrade(0) === 'NONE' && TL.trGrade('s80') === 'S80' && TL.trGrade('None') === 'NONE' && TL.trGrade('') === '' && TL.trGrade('X') === '', 'grade: item-table code, text, unknown');
+  const rows = [{ grade: 'B' }, { grade: 'A' }, { grade: 'B' }, { grade: '' }, { grade: 'NONE' }];
+  check(JSON.stringify(TL.trGradeCounts(rows)) === JSON.stringify([['NONE', 1], ['B', 2], ['A', 1], ['', 1]]) && TL.trGradeMatch({ grade: 'B' }, ['A', 'B']) && !TL.trGradeMatch({ grade: '' }, ['B']) && TL.trGradeMatch({ grade: '' }, []), 'grade: counts in grade order, filter match');
+  const bags = { G1: { rows: [{ objId: 1, id: 10, ok: true, cat: 'gear', grade: 'B', count: 1 }, { objId: 2, id: 11, ok: true, cat: 'gear', grade: 'A', count: 1 }, { objId: 3, id: 12, ok: true, cat: 'material', count: 5 }] } };
+  const sel = TL.trSelectCats({}, bags, ['gear'], true, (r) => TL.trGradeMatch(r, ['B']));
+  check(JSON.stringify(sel.G1) === '{"1":1}' && Object.keys(TL.trSelectCats({}, bags, ['gear'], true).G1).length === 2, 'grade: category "all" with a grade pick ticks only that grade');
+  const gv = [{ rows: [{ id: 1864, stack: true }, { id: 1865, stack: true }, { id: 10, stack: false }], adena: 5 }, { rows: [{ id: 1864, stack: true }, { id: 10, stack: false }], adena: 0 }];
+  check(TL.trRecvNeed(gv, { rows: [{ id: 1865 }], adena: 100 }) === 3 && TL.trRecvNeed(gv, null) === 5 && TL.trRecvNeed(gv, { rows: [], adena: 0 }) === 5, 'receiver need: held / shared stacks take no slot, pieces one each, adena only when he has none');
+}
+
 // ---- 4) source checks ----------------------------------------------------------------------------------------------------------
 const hovSrc = src.slice(src.indexOf('// --- HANDOVER (user 2026-10-10'), src.indexOf('// --- CLAN (user 2026-10-07: Clan tab'));
 check(/case '!handover': \{[\s\S]{0,300}hovCommand\(parts\)/.test(src), "swarm.js: case '!handover' -> hovCommand");
@@ -108,6 +126,9 @@ check(!/new Map\(/.test(hovSrc), 'swarm.js HANDOVER: no new Map() (L2Swarm world
 check(/if \(d > 15000 && hovAway\(n\)\) \{ delete splitWatch/.test(src) && /tradeState \|\| HOV\.busy \|\| raidFightNow\(\)/.test(src), 'split watchdog + left-behind rejoin leave a giver on a hand-over alone');
 check(/CONFIG\.roster\[d\.giver\]/.test(hovSrc) && /swarm\.handover\.take/.test(hovSrc) && /receiveItems\(/.test(hovSrc) && /giveItems\(\{ receiver: o\.receiver/.test(hovSrc), 'receiver accepts only CONFIG.roster givers; the existing giveItems / receiveItems plumbing is used');
 check(/inRaid\(\)/.test(hovSrc) && /inKamaInstance\(\)/.test(hovSrc) && /orderWaitControl\('!handover'/.test(hovSrc) && /PRIO\.ORDER/.test(hovSrc), 'never in raid / Kamaloka; order control P4');
+check(/lim = num\(Me\.InventoryLimit\)[^\n]*TRADESLOTS[\s\S]{0,400}name: Me\.Name, lim, items: rows/.test(src), 'swarm.js: the bag report carries the game slot limit (TRADESLOTS)');
+const pg0 = fs.readFileSync(path.join(ROOT, 'Dashboard', 'tradepage.js'), 'utf8');
+check(pg0.indexOf('Who receives</h3>') > 0 && pg0.indexOf('Who receives</h3>') < pg0.indexOf('Who gives</h3>') && /trd-n">1<\/span> Who receives/.test(pg0), 'page: step 1 = who receives, step 2 = who gives');
 const C = require(path.join(ROOT, 'Dashboard', 'commands.js'));
 const ce = C.COMMANDS.find(c => c.id === 'handover');
 check(ce && C.firstWord(ce.tpl) === '!handover' && C.classify('!handover stop habc').id === 'handoverstop' && C.classify('!handover habc1234').id === 'handover', 'catalog: handover + handoverstop entries, classify picks the right one');
@@ -169,9 +190,21 @@ check(fs.existsSync(path.join(ROOT, 'docs', 'guide', 'pages', 'trade.md')), 'gui
     API._cache.Bishop1 = null;
     const bg2 = await call('/api/trade/bags?names=Bishop1&fresh=1');
     check(bg2.j.bags.Bishop1.src === 'report' && bg2.j.bags.Bishop1.rows[0].count === 98 && bg2.j.bags.Bishop1.ageSec >= 100, 'bags: MCP down -> Logs/bag_<name>.json report with its age');
+    check(bg2.j.bags.Bishop1.used === 1 && bg2.j.bags.Bishop1.lim === 0, 'bags: used slots + no game limit in an old report');
+    // TRADESLOTS: the report with the game's limit -> info slots per character; GRADEFILTER: rows carry the item-table grade
+    fs.writeFileSync(path.join(tmp, 'bag_Bishop1.json'), JSON.stringify({ at: new Date().toISOString(), name: 'Bishop1', lim: 120, items: [{ id: 1864, objId: 51, name: 'Stem', count: 98 }, { id: 2487, objId: 52, name: 'Sealed Blue Wolf Gloves', count: 1, eq: true }] }));
+    fs.writeFileSync(path.join(tmp, 'bag_Tank1.json'), JSON.stringify({ at: new Date().toISOString(), name: 'Tank1', items: Array.from({ length: 195 }, (x, i) => ({ id: 1864, objId: 900 + i, count: 1 })) }));
+    const inf3 = await call('/api/trade/info'), mem = (n) => inf3.j.parties.reduce((a, p) => a.concat(p.members), []).find(m => m.name === n);
+    check(mem('Bishop1').slots && mem('Bishop1').slots.lim === 120 && mem('Bishop1').slots.free === 118 && mem('Bishop1').slots.game && mem('Tank1').slots.lim === 200 && mem('Tank1').slots.free === 5 && mem('Tank1').slots.lvl === 'bad' && mem('Dagger1').slots === null,
+      'info: free slots per character (game limit from the report, else 200; no report = null)');
+    API._cache.Bishop1 = null;
+    const bg3 = await call('/api/trade/bags?names=Bishop1&fresh=1');
+    check(bg3.j.bags.Bishop1.lim === 120 && bg3.j.bags.Bishop1.rows.find(r => r.objId === 52).grade === 'B', 'bags: the game limit + the item-table grade (2487 = B)');
     ctx.mcpCallChar = keep; API._cache.Bishop1 = null;
+    fs.writeFileSync(path.join(tmp, 'bag_Dagger1.json'), JSON.stringify({ at: new Date().toISOString(), name: 'Dagger1', items: [{ id: 1864, objId: 700, name: 'Stem', count: 3 }] }));   // TRADESLOTS: the receiver's report
     const pl = await call('/api/trade/plan', { receiver: '@clanleader', sel: { Tank1: { 2: 5, 7: 1 }, Bishop1: { 51: 99 } }, adena: { Tank1: 100 } });
     check(pl.code === 200 && pl.j.receiver === 'Dagger1' && pl.j.total.givers === 2 && pl.j.givers.find(g => g.name === 'Tank1').rows.length === 1 && pl.j.givers.find(g => g.name === 'Tank1').adena === 100 && pl.j.batches.Tank1 === 1, 'plan: receiver = clan leader, worn dropped, explicit adena, batches');
+    check(pl.j.recv && pl.j.recv.name === 'Dagger1' && pl.j.recv.need === 2 && pl.j.recv.slots && pl.j.recv.slots.lim === 200 && pl.j.recv.slots.free === 199, 'plan: receiver need (Stem he holds = 0, scrolls 1, adena he lacks 1) and his free slots');
     check((await call('/api/trade/plan', { receiver: 'Ghost', sel: {} })).code === 400 && (await call('/api/trade/plan', { receiver: 'Dagger1', sel: { Evil: { 1: 1 } } })).code === 400, 'plan: unknown receiver / giver refused');
     const nc = await call('/api/trade/order', { receiver: '@clanleader', sel: { Tank1: { 2: 5 } } });
     check(nc.code === 409 && nc.j.needConfirm && SENT.length === 0, 'order without confirm = 409, nothing sent');
