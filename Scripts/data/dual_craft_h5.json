@@ -1,0 +1,4407 @@
+{
+ "_about": "Dual sword crafting (L2J H5 datapack multisells 1001 = D/C duals for Crystal D at Pushkin in Giran; 1007 = B duals for Stone of Purity at Wilbert in Aden (also Hilda Goddard, Vincenz Rune, Buryun Schuttgart); 311262502 = A duals for a Dualsword Craft Stamp + Ancient Adena at Pushkin). adena = datapack price (L2Toggle may differ: the live list decides). DUALCRAFT 2026-10-25.",
+ "rows": [
+  {
+   "p": 2516,
+   "pn": "Saber*Saber",
+   "g": "D",
+   "a": 123,
+   "b": 123,
+   "an": "Saber",
+   "bn": "Saber",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 131,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 84825,
+   "list": 1001,
+   "entry": 1,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2517,
+   "pn": "Saber*Bastard Sword",
+   "g": "D",
+   "a": 123,
+   "b": 69,
+   "an": "Saber",
+   "bn": "Bastard Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 23,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 14625,
+   "list": 1001,
+   "entry": 2,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2518,
+   "pn": "Saber*Spinebone Sword",
+   "g": "D",
+   "a": 123,
+   "b": 125,
+   "an": "Saber",
+   "bn": "Spinebone Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 23,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 14625,
+   "list": 1001,
+   "entry": 3,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2519,
+   "pn": "Saber*Artisan's Sword",
+   "g": "D",
+   "a": 123,
+   "b": 126,
+   "an": "Saber",
+   "bn": "Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 23,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 14625,
+   "list": 1001,
+   "entry": 4,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2520,
+   "pn": "Saber*Knight's Sword",
+   "g": "D",
+   "a": 123,
+   "b": 128,
+   "an": "Saber",
+   "bn": "Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 23,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 14625,
+   "list": 1001,
+   "entry": 5,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2521,
+   "pn": "Saber*Crimson Sword",
+   "g": "D",
+   "a": 123,
+   "b": 127,
+   "an": "Saber",
+   "bn": "Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 46,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 29835,
+   "list": 1001,
+   "entry": 6,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2522,
+   "pn": "Saber*Elven Sword",
+   "g": "D",
+   "a": 123,
+   "b": 130,
+   "an": "Saber",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 46,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 29835,
+   "list": 1001,
+   "entry": 7,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2523,
+   "pn": "Saber*Sword of Revolution",
+   "g": "C",
+   "a": 123,
+   "b": 129,
+   "an": "Saber",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 326,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 211770,
+   "list": 1001,
+   "entry": 8,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2524,
+   "pn": "Saber*Elven Long Sword",
+   "g": "C",
+   "a": 123,
+   "b": 2499,
+   "an": "Saber",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 185,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 119925,
+   "list": 1001,
+   "entry": 9,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2525,
+   "pn": "Bastard Sword*Bastard Sword",
+   "g": "D",
+   "a": 69,
+   "b": 69,
+   "an": "Bastard Sword",
+   "bn": "Bastard Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 10,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2526,
+   "pn": "Bastard Sword*Spinebone Sword",
+   "g": "D",
+   "a": 69,
+   "b": 125,
+   "an": "Bastard Sword",
+   "bn": "Spinebone Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 11,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2527,
+   "pn": "Bastard Sword*Artisan's Sword",
+   "g": "D",
+   "a": 69,
+   "b": 126,
+   "an": "Bastard Sword",
+   "bn": "Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 12,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2528,
+   "pn": "Bastard Sword*Knight's Sword",
+   "g": "D",
+   "a": 69,
+   "b": 128,
+   "an": "Bastard Sword",
+   "bn": "Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 13,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2529,
+   "pn": "Bastard Sword*Crimson Sword",
+   "g": "D",
+   "a": 69,
+   "b": 127,
+   "an": "Bastard Sword",
+   "bn": "Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 14,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2530,
+   "pn": "Bastard Sword*Elven Sword",
+   "g": "D",
+   "a": 69,
+   "b": 130,
+   "an": "Bastard Sword",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 15,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2531,
+   "pn": "Bastard Sword*Sword of Revolution",
+   "g": "C",
+   "a": 69,
+   "b": 129,
+   "an": "Bastard Sword",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 167,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 108225,
+   "list": 1001,
+   "entry": 16,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2532,
+   "pn": "Bastard Sword*Elven Long Sword",
+   "g": "C",
+   "a": 69,
+   "b": 2499,
+   "an": "Bastard Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 68,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 43875,
+   "list": 1001,
+   "entry": 17,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2533,
+   "pn": "Spinebone Sword*Spinebone Sword",
+   "g": "D",
+   "a": 125,
+   "b": 125,
+   "an": "Spinebone Sword",
+   "bn": "Spinebone Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 18,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2534,
+   "pn": "Spinebone Sword*Artisan's Sword",
+   "g": "D",
+   "a": 125,
+   "b": 126,
+   "an": "Spinebone Sword",
+   "bn": "Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 19,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2535,
+   "pn": "Spinebone Sword*Knight's Sword",
+   "g": "D",
+   "a": 125,
+   "b": 128,
+   "an": "Spinebone Sword",
+   "bn": "Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 20,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2536,
+   "pn": "Spinebone Sword*Crimson Sword",
+   "g": "D",
+   "a": 125,
+   "b": 127,
+   "an": "Spinebone Sword",
+   "bn": "Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 21,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2537,
+   "pn": "Spinebone Sword*Elven Sword",
+   "g": "D",
+   "a": 125,
+   "b": 130,
+   "an": "Spinebone Sword",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 22,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2538,
+   "pn": "Spinebone Sword*Sword of Revolution",
+   "g": "C",
+   "a": 125,
+   "b": 129,
+   "an": "Spinebone Sword",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 167,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 108225,
+   "list": 1001,
+   "entry": 23,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2539,
+   "pn": "Spinebone Sword*Elven Long Sword",
+   "g": "C",
+   "a": 125,
+   "b": 2499,
+   "an": "Spinebone Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 68,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 43875,
+   "list": 1001,
+   "entry": 24,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2540,
+   "pn": "Artisan's Sword*Artisan's Sword",
+   "g": "D",
+   "a": 126,
+   "b": 126,
+   "an": "Artisan's Sword",
+   "bn": "Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 25,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2541,
+   "pn": "Artisan's Sword*Knight's Sword",
+   "g": "D",
+   "a": 126,
+   "b": 128,
+   "an": "Artisan's Sword",
+   "bn": "Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 26,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2542,
+   "pn": "Artisan's Sword*Crimson Sword",
+   "g": "D",
+   "a": 126,
+   "b": 127,
+   "an": "Artisan's Sword",
+   "bn": "Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 27,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2543,
+   "pn": "Artisan's Sword*Elven Sword",
+   "g": "D",
+   "a": 126,
+   "b": 130,
+   "an": "Artisan's Sword",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 28,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2544,
+   "pn": "Artisan's Sword*Sword of Revolution",
+   "g": "C",
+   "a": 126,
+   "b": 129,
+   "an": "Artisan's Sword",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 167,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 108225,
+   "list": 1001,
+   "entry": 29,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2545,
+   "pn": "Artisan's Sword*Elven Long Sword",
+   "g": "C",
+   "a": 126,
+   "b": 2499,
+   "an": "Artisan's Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 68,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 43875,
+   "list": 1001,
+   "entry": 30,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2546,
+   "pn": "Knight's Sword*Knight's Sword",
+   "g": "D",
+   "a": 128,
+   "b": 128,
+   "an": "Knight's Sword",
+   "bn": "Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 241,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 156780,
+   "list": 1001,
+   "entry": 31,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2547,
+   "pn": "Knight's Sword*Crimson Sword",
+   "g": "D",
+   "a": 128,
+   "b": 127,
+   "an": "Knight's Sword",
+   "bn": "Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 32,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2548,
+   "pn": "Knight's Sword*Elven Sword",
+   "g": "D",
+   "a": 128,
+   "b": 130,
+   "an": "Knight's Sword",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 105,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 68445,
+   "list": 1001,
+   "entry": 33,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2549,
+   "pn": "Knight's Sword*Sword of Revolution",
+   "g": "C",
+   "a": 128,
+   "b": 129,
+   "an": "Knight's Sword",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 167,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 108225,
+   "list": 1001,
+   "entry": 34,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2550,
+   "pn": "Knight's Sword*Elven Long Sword",
+   "g": "C",
+   "a": 128,
+   "b": 2499,
+   "an": "Knight's Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 68,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 43875,
+   "list": 1001,
+   "entry": 35,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2551,
+   "pn": "Crimson Sword*Crimson Sword",
+   "g": "C",
+   "a": 127,
+   "b": 127,
+   "an": "Crimson Sword",
+   "bn": "Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 49,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 31590,
+   "list": 1001,
+   "entry": 36,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2552,
+   "pn": "Crimson Sword*Elven Sword",
+   "g": "C",
+   "a": 127,
+   "b": 130,
+   "an": "Crimson Sword",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 49,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 31590,
+   "list": 1001,
+   "entry": 37,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2553,
+   "pn": "Crimson Sword*Sword of Revolution",
+   "g": "C",
+   "a": 127,
+   "b": 129,
+   "an": "Crimson Sword",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 239,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 155025,
+   "list": 1001,
+   "entry": 38,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2554,
+   "pn": "Crimson Sword*Elven Long Sword",
+   "g": "C",
+   "a": 127,
+   "b": 2499,
+   "an": "Crimson Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 234,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 152100,
+   "list": 1001,
+   "entry": 39,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2555,
+   "pn": "Elven Sword*Elven Sword",
+   "g": "C",
+   "a": 130,
+   "b": 130,
+   "an": "Elven Sword",
+   "bn": "Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 49,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 31590,
+   "list": 1001,
+   "entry": 40,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2556,
+   "pn": "Elven Sword*Sword of Revolution",
+   "g": "C",
+   "a": 130,
+   "b": 129,
+   "an": "Elven Sword",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 239,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 155025,
+   "list": 1001,
+   "entry": 41,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2557,
+   "pn": "Elven Sword*Elven Long Sword",
+   "g": "C",
+   "a": 130,
+   "b": 2499,
+   "an": "Elven Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 234,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 152100,
+   "list": 1001,
+   "entry": 42,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2558,
+   "pn": "Sword of Revolution*Sword of Revolution",
+   "g": "C",
+   "a": 129,
+   "b": 129,
+   "an": "Sword of Revolution",
+   "bn": "Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 160,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 104130,
+   "list": 1001,
+   "entry": 43,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2559,
+   "pn": "Sword of Revolution*Elven Long Sword",
+   "g": "C",
+   "a": 129,
+   "b": 2499,
+   "an": "Sword of Revolution",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 319,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 207090,
+   "list": 1001,
+   "entry": 44,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2560,
+   "pn": "Elven Long Sword*Elven Long Sword",
+   "g": "C",
+   "a": 2499,
+   "b": 2499,
+   "an": "Elven Long Sword",
+   "bn": "Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 482,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 312975,
+   "list": 1001,
+   "entry": 45,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2561,
+   "pn": "Stormbringer*Stormbringer",
+   "g": "C",
+   "a": 72,
+   "b": 72,
+   "an": "Stormbringer",
+   "bn": "Stormbringer",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 446,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 289575,
+   "list": 1001,
+   "entry": 46,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2562,
+   "pn": "Stormbringer*Shamshir",
+   "g": "C",
+   "a": 72,
+   "b": 73,
+   "an": "Stormbringer",
+   "bn": "Shamshir",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 257,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 166725,
+   "list": 1001,
+   "entry": 47,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2563,
+   "pn": "Stormbringer*Katana",
+   "g": "C",
+   "a": 72,
+   "b": 74,
+   "an": "Stormbringer",
+   "bn": "Katana",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 257,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 166725,
+   "list": 1001,
+   "entry": 48,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2564,
+   "pn": "Stormbringer*Spirit Sword",
+   "g": "C",
+   "a": 72,
+   "b": 131,
+   "an": "Stormbringer",
+   "bn": "Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 257,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 166725,
+   "list": 1001,
+   "entry": 49,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2565,
+   "pn": "Stormbringer*Raid Sword",
+   "g": "C",
+   "a": 72,
+   "b": 133,
+   "an": "Stormbringer",
+   "bn": "Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 257,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 166725,
+   "list": 1001,
+   "entry": 50,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2572,
+   "pn": "Shamshir*Shamshir",
+   "g": "C",
+   "a": 73,
+   "b": 73,
+   "an": "Shamshir",
+   "bn": "Shamshir",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 51,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2573,
+   "pn": "Shamshir*Katana",
+   "g": "C",
+   "a": 73,
+   "b": 74,
+   "an": "Shamshir",
+   "bn": "Katana",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 52,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2574,
+   "pn": "Shamshir*Spirit Sword",
+   "g": "C",
+   "a": 73,
+   "b": 131,
+   "an": "Shamshir",
+   "bn": "Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 53,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2575,
+   "pn": "Shamshir*Raid Sword",
+   "g": "C",
+   "a": 73,
+   "b": 133,
+   "an": "Shamshir",
+   "bn": "Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 54,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2582,
+   "pn": "Katana*Katana",
+   "g": "C",
+   "a": 74,
+   "b": 74,
+   "an": "Katana",
+   "bn": "Katana",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 55,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2583,
+   "pn": "Katana*Spirit Sword",
+   "g": "C",
+   "a": 74,
+   "b": 131,
+   "an": "Katana",
+   "bn": "Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 56,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2584,
+   "pn": "Katana*Raid Sword",
+   "g": "C",
+   "a": 74,
+   "b": 133,
+   "an": "Katana",
+   "bn": "Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 57,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2591,
+   "pn": "Spirit Sword*Spirit Sword",
+   "g": "C",
+   "a": 131,
+   "b": 131,
+   "an": "Spirit Sword",
+   "bn": "Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 58,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2592,
+   "pn": "Spirit Sword*Raid Sword",
+   "g": "C",
+   "a": 131,
+   "b": 133,
+   "an": "Spirit Sword",
+   "bn": "Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 59,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2599,
+   "pn": "Raid Sword*Raid Sword",
+   "g": "C",
+   "a": 133,
+   "b": 133,
+   "an": "Raid Sword",
+   "bn": "Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 859,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 558090,
+   "list": 1001,
+   "entry": 60,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11658,
+   "pn": "Common Item - Saber*Saber",
+   "g": "D",
+   "a": 11614,
+   "b": 11614,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Saber",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 15,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 9425,
+   "list": 1001,
+   "entry": 61,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11680,
+   "pn": "Common Item - Saber*Bastard Sword",
+   "g": "D",
+   "a": 11614,
+   "b": 11635,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Bastard Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 3,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 1625,
+   "list": 1001,
+   "entry": 62,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11681,
+   "pn": "Common Item - Saber*Spinebone Sword",
+   "g": "D",
+   "a": 11614,
+   "b": 11636,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Spinebone Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 3,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 1625,
+   "list": 1001,
+   "entry": 63,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11682,
+   "pn": "Common Item - Saber*Artisan's Sword",
+   "g": "D",
+   "a": 11614,
+   "b": 11643,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 3,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 1625,
+   "list": 1001,
+   "entry": 64,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11679,
+   "pn": "Common Item - Saber*Knight's Sword",
+   "g": "D",
+   "a": 11614,
+   "b": 11628,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 3,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 1625,
+   "list": 1001,
+   "entry": 65,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11695,
+   "pn": "Common Item - Saber*Crimson Sword",
+   "g": "D",
+   "a": 11614,
+   "b": 11675,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 5,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 3315,
+   "list": 1001,
+   "entry": 66,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11694,
+   "pn": "Common Item - Saber*Elven Sword",
+   "g": "D",
+   "a": 11614,
+   "b": 11670,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 5,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 3315,
+   "list": 1001,
+   "entry": 67,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11738,
+   "pn": "Common Item - Saber*Sword of Revolution",
+   "g": "C",
+   "a": 11614,
+   "b": 11714,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 36,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 23530,
+   "list": 1001,
+   "entry": 68,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11752,
+   "pn": "Common Item - Saber*Elven Long Sword",
+   "g": "C",
+   "a": 11614,
+   "b": 11733,
+   "an": "Common Item - Saber",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 21,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 13325,
+   "list": 1001,
+   "entry": 69,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11688,
+   "pn": "Common Item - Bastard Sword*Bastard Sword",
+   "g": "D",
+   "a": 11635,
+   "b": 11635,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Bastard Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 70,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11689,
+   "pn": "Common Item - Bastard Sword*Spinebone Sword",
+   "g": "D",
+   "a": 11635,
+   "b": 11636,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Spinebone Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 71,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11690,
+   "pn": "Common Item - Bastard Sword*Artisan's Sword",
+   "g": "D",
+   "a": 11635,
+   "b": 11643,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 72,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11687,
+   "pn": "Common Item - Bastard Sword*Knight's Sword",
+   "g": "D",
+   "a": 11635,
+   "b": 11628,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 73,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11719,
+   "pn": "Common Item - Bastard Sword*Crimson Sword",
+   "g": "D",
+   "a": 11635,
+   "b": 11675,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 74,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11718,
+   "pn": "Common Item - Bastard Sword*Elven Sword",
+   "g": "D",
+   "a": 11635,
+   "b": 11670,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 75,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11743,
+   "pn": "Common Item - Bastard Sword*Sword of Revolution",
+   "g": "C",
+   "a": 11635,
+   "b": 11714,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 19,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 12025,
+   "list": 1001,
+   "entry": 76,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11770,
+   "pn": "Common Item - Bastard Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11635,
+   "b": 11733,
+   "an": "Common Item - Bastard Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 8,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 4875,
+   "list": 1001,
+   "entry": 77,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11699,
+   "pn": "Common Item - Spinebone Sword*Spinebone Sword",
+   "g": "D",
+   "a": 11636,
+   "b": 11636,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Spinebone Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 78,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11700,
+   "pn": "Common Item - Spinebone Sword*Artisan's Sword",
+   "g": "D",
+   "a": 11636,
+   "b": 11643,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 79,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11698,
+   "pn": "Common Item - Spinebone Sword*Knight's Sword",
+   "g": "D",
+   "a": 11636,
+   "b": 11628,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 80,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11721,
+   "pn": "Common Item - Spinebone Sword*Crimson Sword",
+   "g": "D",
+   "a": 11636,
+   "b": 11675,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 81,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11720,
+   "pn": "Common Item - Spinebone Sword*Elven Sword",
+   "g": "D",
+   "a": 11636,
+   "b": 11670,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 82,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11744,
+   "pn": "Common Item - Spinebone Sword*Sword of Revolution",
+   "g": "C",
+   "a": 11636,
+   "b": 11714,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 19,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 12025,
+   "list": 1001,
+   "entry": 83,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11771,
+   "pn": "Common Item - Spinebone Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11636,
+   "b": 11733,
+   "an": "Common Item - Spinebone Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 8,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 4875,
+   "list": 1001,
+   "entry": 84,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11705,
+   "pn": "Common Item - Artisan's Sword*Artisan's Sword",
+   "g": "D",
+   "a": 11643,
+   "b": 11643,
+   "an": "Common Item - Artisan's Sword",
+   "bn": "Common Item - Artisan's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 85,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11704,
+   "pn": "Common Item - Artisan's Sword*Knight's Sword",
+   "g": "D",
+   "a": 11643,
+   "b": 11628,
+   "an": "Common Item - Artisan's Sword",
+   "bn": "Common Item - Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 86,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11723,
+   "pn": "Common Item - Artisan's Sword*Crimson Sword",
+   "g": "D",
+   "a": 11643,
+   "b": 11675,
+   "an": "Common Item - Artisan's Sword",
+   "bn": "Common Item - Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 87,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11722,
+   "pn": "Common Item - Artisan's Sword*Elven Sword",
+   "g": "D",
+   "a": 11643,
+   "b": 11670,
+   "an": "Common Item - Artisan's Sword",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 88,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11745,
+   "pn": "Common Item - Artisan's Sword*Sword of Revolution",
+   "g": "C",
+   "a": 11643,
+   "b": 11714,
+   "an": "Common Item - Artisan's Sword",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 19,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 12025,
+   "list": 1001,
+   "entry": 89,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11773,
+   "pn": "Common Item - Artisan's Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11643,
+   "b": 11733,
+   "an": "Common Item - Artisan's Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 8,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 4875,
+   "list": 1001,
+   "entry": 90,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11684,
+   "pn": "Common Item - Knight's Sword*Knight's Sword",
+   "g": "D",
+   "a": 11628,
+   "b": 11628,
+   "an": "Common Item - Knight's Sword",
+   "bn": "Common Item - Knight's Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17420,
+   "list": 1001,
+   "entry": 91,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11717,
+   "pn": "Common Item - Knight's Sword*Crimson Sword",
+   "g": "D",
+   "a": 11628,
+   "b": 11675,
+   "an": "Common Item - Knight's Sword",
+   "bn": "Common Item - Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 92,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11716,
+   "pn": "Common Item - Knight's Sword*Elven Sword",
+   "g": "D",
+   "a": 11628,
+   "b": 11670,
+   "an": "Common Item - Knight's Sword",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 12,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 7605,
+   "list": 1001,
+   "entry": 93,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11742,
+   "pn": "Common Item - Knight's Sword*Sword of Revolution",
+   "g": "C",
+   "a": 11628,
+   "b": 11714,
+   "an": "Common Item - Knight's Sword",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 19,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 12025,
+   "list": 1001,
+   "entry": 94,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11769,
+   "pn": "Common Item - Knight's Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11628,
+   "b": 11733,
+   "an": "Common Item - Knight's Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 8,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 4875,
+   "list": 1001,
+   "entry": 95,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11741,
+   "pn": "Common Item - Crimson Sword*Crimson Sword",
+   "g": "C",
+   "a": 11675,
+   "b": 11675,
+   "an": "Common Item - Crimson Sword",
+   "bn": "Common Item - Crimson Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 5,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 3510,
+   "list": 1001,
+   "entry": 96,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11740,
+   "pn": "Common Item - Crimson Sword*Elven Sword",
+   "g": "C",
+   "a": 11675,
+   "b": 11670,
+   "an": "Common Item - Crimson Sword",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 5,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 3510,
+   "list": 1001,
+   "entry": 97,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11774,
+   "pn": "Common Item - Crimson Sword*Sword of Revolution",
+   "g": "C",
+   "a": 11675,
+   "b": 11714,
+   "an": "Common Item - Crimson Sword",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17225,
+   "list": 1001,
+   "entry": 98,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11795,
+   "pn": "Common Item - Crimson Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11675,
+   "b": 11733,
+   "an": "Common Item - Crimson Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 26,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 16900,
+   "list": 1001,
+   "entry": 99,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11739,
+   "pn": "Common Item - Elven Sword*Elven Sword",
+   "g": "C",
+   "a": 11670,
+   "b": 11670,
+   "an": "Common Item - Elven Sword",
+   "bn": "Common Item - Elven Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 5,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 3510,
+   "list": 1001,
+   "entry": 100,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11772,
+   "pn": "Common Item - Elven Sword*Sword of Revolution",
+   "g": "C",
+   "a": 11670,
+   "b": 11714,
+   "an": "Common Item - Elven Sword",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 27,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 17225,
+   "list": 1001,
+   "entry": 101,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11791,
+   "pn": "Common Item - Elven Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11670,
+   "b": 11733,
+   "an": "Common Item - Elven Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 26,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 16900,
+   "list": 1001,
+   "entry": 102,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11796,
+   "pn": "Common Item - Sword of Revolution*Sword of Revolution",
+   "g": "C",
+   "a": 11714,
+   "b": 11714,
+   "an": "Common Item - Sword of Revolution",
+   "bn": "Common Item - Sword of Revolution",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 18,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 11570,
+   "list": 1001,
+   "entry": 103,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11797,
+   "pn": "Common Item - Sword of Revolution*Elven Long Sword",
+   "g": "C",
+   "a": 11714,
+   "b": 11733,
+   "an": "Common Item - Sword of Revolution",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 35,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 23010,
+   "list": 1001,
+   "entry": 104,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11798,
+   "pn": "Common Item - Elven Long Sword*Elven Long Sword",
+   "g": "C",
+   "a": 11733,
+   "b": 11733,
+   "an": "Common Item - Elven Long Sword",
+   "bn": "Common Item - Elven Long Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 54,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 34775,
+   "list": 1001,
+   "entry": 105,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11831,
+   "pn": "Common Item - Stormbringer*Stormbringer",
+   "g": "C",
+   "a": 11756,
+   "b": 11756,
+   "an": "Common Item - Stormbringer",
+   "bn": "Common Item - Stormbringer",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 50,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 32175,
+   "list": 1001,
+   "entry": 106,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11835,
+   "pn": "Common Item - Stormbringer*Shamshir",
+   "g": "C",
+   "a": 11756,
+   "b": 11783,
+   "an": "Common Item - Stormbringer",
+   "bn": "Common Item - Shamshir",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 29,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 18525,
+   "list": 1001,
+   "entry": 107,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11837,
+   "pn": "Common Item - Stormbringer*Katana",
+   "g": "C",
+   "a": 11756,
+   "b": 11794,
+   "an": "Common Item - Stormbringer",
+   "bn": "Common Item - Katana",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 29,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 18525,
+   "list": 1001,
+   "entry": 108,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11836,
+   "pn": "Common Item - Stormbringer*Spirit Sword",
+   "g": "C",
+   "a": 11756,
+   "b": 11789,
+   "an": "Common Item - Stormbringer",
+   "bn": "Common Item - Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 29,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 18525,
+   "list": 1001,
+   "entry": 109,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11834,
+   "pn": "Common Item - Stormbringer*Raid Sword",
+   "g": "C",
+   "a": 11756,
+   "b": 11778,
+   "an": "Common Item - Stormbringer",
+   "bn": "Common Item - Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 29,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 18525,
+   "list": 1001,
+   "entry": 110,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11846,
+   "pn": "Common Item - Shamshir*Shamshir",
+   "g": "C",
+   "a": 11783,
+   "b": 11783,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Shamshir",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 111,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11848,
+   "pn": "Common Item - Shamshir*Katana",
+   "g": "C",
+   "a": 11783,
+   "b": 11794,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Katana",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 112,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11847,
+   "pn": "Common Item - Shamshir*Spirit Sword",
+   "g": "C",
+   "a": 11783,
+   "b": 11789,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 113,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11845,
+   "pn": "Common Item - Shamshir*Raid Sword",
+   "g": "C",
+   "a": 11783,
+   "b": 11778,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 114,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11862,
+   "pn": "Common Item - Katana*Katana",
+   "g": "C",
+   "a": 11794,
+   "b": 11794,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Katana",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 115,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11861,
+   "pn": "Common Item - Katana*Spirit Sword",
+   "g": "C",
+   "a": 11794,
+   "b": 11789,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 116,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11860,
+   "pn": "Common Item - Katana*Raid Sword",
+   "g": "C",
+   "a": 11794,
+   "b": 11778,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 117,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11852,
+   "pn": "Common Item - Spirit Sword*Spirit Sword",
+   "g": "C",
+   "a": 11789,
+   "b": 11789,
+   "an": "Common Item - Spirit Sword",
+   "bn": "Common Item - Spirit Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 118,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11851,
+   "pn": "Common Item - Spirit Sword*Raid Sword",
+   "g": "C",
+   "a": 11789,
+   "b": 11778,
+   "an": "Common Item - Spirit Sword",
+   "bn": "Common Item - Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 119,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 11841,
+   "pn": "Common Item - Raid Sword*Raid Sword",
+   "g": "C",
+   "a": 11778,
+   "b": 11778,
+   "an": "Common Item - Raid Sword",
+   "bn": "Common Item - Raid Sword",
+   "mats": [
+    {
+     "id": 1458,
+     "count": 95,
+     "name": "Crystal (D-Grade)"
+    }
+   ],
+   "adena": 62010,
+   "list": 1001,
+   "entry": 120,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": [
+    "Rupio"
+   ]
+  },
+  {
+   "p": 2576,
+   "pn": "Shamshir*Caliburs",
+   "g": "B",
+   "a": 73,
+   "b": 75,
+   "an": "Shamshir",
+   "bn": "Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 1,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2579,
+   "pn": "Shamshir*Sword of Nightmare",
+   "g": "B",
+   "a": 73,
+   "b": 134,
+   "an": "Shamshir",
+   "bn": "Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 2,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2580,
+   "pn": "Shamshir*Tsurugi",
+   "g": "B",
+   "a": 73,
+   "b": 77,
+   "an": "Shamshir",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 3,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2585,
+   "pn": "Katana*Caliburs",
+   "g": "B",
+   "a": 74,
+   "b": 75,
+   "an": "Katana",
+   "bn": "Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 4,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2588,
+   "pn": "Katana*Sword of Nightmare",
+   "g": "B",
+   "a": 74,
+   "b": 134,
+   "an": "Katana",
+   "bn": "Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 5,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2589,
+   "pn": "Katana*Tsurugi",
+   "g": "B",
+   "a": 74,
+   "b": 77,
+   "an": "Katana",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 6,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2593,
+   "pn": "Spirit Sword*Caliburs",
+   "g": "B",
+   "a": 131,
+   "b": 75,
+   "an": "Spirit Sword",
+   "bn": "Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 7,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2596,
+   "pn": "Spirit Sword*Sword of Nightmare",
+   "g": "B",
+   "a": 131,
+   "b": 134,
+   "an": "Spirit Sword",
+   "bn": "Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 8,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2597,
+   "pn": "Spirit Sword*Tsurugi",
+   "g": "B",
+   "a": 131,
+   "b": 77,
+   "an": "Spirit Sword",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 9,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2600,
+   "pn": "Raid Sword*Caliburs",
+   "g": "B",
+   "a": 133,
+   "b": 75,
+   "an": "Raid Sword",
+   "bn": "Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 10,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2603,
+   "pn": "Raid Sword*Sword of Nightmare",
+   "g": "B",
+   "a": 133,
+   "b": 134,
+   "an": "Raid Sword",
+   "bn": "Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 11,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2604,
+   "pn": "Raid Sword*Tsurugi",
+   "g": "B",
+   "a": 133,
+   "b": 77,
+   "an": "Raid Sword",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 318,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 953100,
+   "list": 1007,
+   "entry": 12,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2606,
+   "pn": "Caliburs*Caliburs",
+   "g": "B",
+   "a": 75,
+   "b": 75,
+   "an": "Caliburs",
+   "bn": "Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 41,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 121500,
+   "list": 1007,
+   "entry": 13,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2609,
+   "pn": "Caliburs*Sword of Nightmare",
+   "g": "B",
+   "a": 75,
+   "b": 134,
+   "an": "Caliburs",
+   "bn": "Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 41,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 121500,
+   "list": 1007,
+   "entry": 14,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2610,
+   "pn": "Caliburs*Tsurugi",
+   "g": "B",
+   "a": 75,
+   "b": 77,
+   "an": "Caliburs",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 41,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 121500,
+   "list": 1007,
+   "entry": 15,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2621,
+   "pn": "Sword of Nightmare*Sword of Nightmare",
+   "g": "B",
+   "a": 134,
+   "b": 134,
+   "an": "Sword of Nightmare",
+   "bn": "Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 41,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 121500,
+   "list": 1007,
+   "entry": 16,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2622,
+   "pn": "Sword of Nightmare*Tsurugi",
+   "g": "B",
+   "a": 134,
+   "b": 77,
+   "an": "Sword of Nightmare",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 41,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 121500,
+   "list": 1007,
+   "entry": 17,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2624,
+   "pn": "Tsurugi*Tsurugi",
+   "g": "B",
+   "a": 77,
+   "b": 77,
+   "an": "Tsurugi",
+   "bn": "Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 41,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 121500,
+   "list": 1007,
+   "entry": 18,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2581,
+   "pn": "Shamshir*Samurai Long Sword",
+   "g": "B",
+   "a": 73,
+   "b": 135,
+   "an": "Shamshir",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 263,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 788400,
+   "list": 1007,
+   "entry": 19,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2590,
+   "pn": "Katana*Samurai Long Sword",
+   "g": "B",
+   "a": 74,
+   "b": 135,
+   "an": "Katana",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 263,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 788400,
+   "list": 1007,
+   "entry": 20,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2598,
+   "pn": "Spirit Sword*Samurai Long Sword",
+   "g": "B",
+   "a": 131,
+   "b": 135,
+   "an": "Spirit Sword",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 263,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 788400,
+   "list": 1007,
+   "entry": 21,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2605,
+   "pn": "Raid Sword*Samurai Long Sword",
+   "g": "B",
+   "a": 133,
+   "b": 135,
+   "an": "Raid Sword",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 263,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 788400,
+   "list": 1007,
+   "entry": 22,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2611,
+   "pn": "Caliburs*Samurai Long Sword",
+   "g": "B",
+   "a": 75,
+   "b": 135,
+   "an": "Caliburs",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 441,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 1323000,
+   "list": 1007,
+   "entry": 23,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2623,
+   "pn": "Sword of Nightmare*Samurai Long Sword",
+   "g": "B",
+   "a": 134,
+   "b": 135,
+   "an": "Sword of Nightmare",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 441,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 1323000,
+   "list": 1007,
+   "entry": 24,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2625,
+   "pn": "Tsurugi*Samurai Long Sword",
+   "g": "B",
+   "a": 77,
+   "b": 135,
+   "an": "Tsurugi",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 441,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 1323000,
+   "list": 1007,
+   "entry": 25,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 2626,
+   "pn": "Samurai Long Sword*Samurai Long Sword",
+   "g": "B",
+   "a": 135,
+   "b": 135,
+   "an": "Samurai Longsword",
+   "bn": "Samurai Longsword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 450,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 1350000,
+   "list": 1007,
+   "entry": 26,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11878,
+   "pn": "Common Item - Shamshir*Caliburs",
+   "g": "B",
+   "a": 11783,
+   "b": 11821,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 27,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11876,
+   "pn": "Common Item - Shamshir*Sword of Nightmare",
+   "g": "B",
+   "a": 11783,
+   "b": 11815,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 28,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11877,
+   "pn": "Common Item - Shamshir*Tsurugi",
+   "g": "B",
+   "a": 11783,
+   "b": 11820,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 29,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11888,
+   "pn": "Common Item - Katana*Caliburs",
+   "g": "B",
+   "a": 11794,
+   "b": 11821,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 30,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11886,
+   "pn": "Common Item - Katana*Sword of Nightmare",
+   "g": "B",
+   "a": 11794,
+   "b": 11815,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 31,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11887,
+   "pn": "Common Item - Katana*Tsurugi",
+   "g": "B",
+   "a": 11794,
+   "b": 11820,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 32,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11883,
+   "pn": "Common Item - Spirit Sword*Caliburs",
+   "g": "B",
+   "a": 11789,
+   "b": 11821,
+   "an": "Common Item - Spirit Sword",
+   "bn": "Common Item - Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 33,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11881,
+   "pn": "Common Item - Spirit Sword*Sword of Nightmare",
+   "g": "B",
+   "a": 11789,
+   "b": 11815,
+   "an": "Common Item - Spirit Sword",
+   "bn": "Common Item - Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 34,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11882,
+   "pn": "Common Item - Spirit Sword*Tsurugi",
+   "g": "B",
+   "a": 11789,
+   "b": 11820,
+   "an": "Common Item - Spirit Sword",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 35,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11873,
+   "pn": "Common Item - Raid Sword*Caliburs",
+   "g": "B",
+   "a": 11778,
+   "b": 11821,
+   "an": "Common Item - Raid Sword",
+   "bn": "Common Item - Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 36,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11871,
+   "pn": "Common Item - Raid Sword*Sword of Nightmare",
+   "g": "B",
+   "a": 11778,
+   "b": 11815,
+   "an": "Common Item - Raid Sword",
+   "bn": "Common Item - Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 37,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11872,
+   "pn": "Common Item - Raid Sword*Tsurugi",
+   "g": "B",
+   "a": 11778,
+   "b": 11820,
+   "an": "Common Item - Raid Sword",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 35,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 105900,
+   "list": 1007,
+   "entry": 38,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11914,
+   "pn": "Common Item - Caliburs*Caliburs",
+   "g": "B",
+   "a": 11821,
+   "b": 11821,
+   "an": "Common Item - Caliburs",
+   "bn": "Common Item - Caliburs",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 5,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 13500,
+   "list": 1007,
+   "entry": 39,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11912,
+   "pn": "Common Item - Caliburs*Sword of Nightmare",
+   "g": "B",
+   "a": 11821,
+   "b": 11815,
+   "an": "Common Item - Caliburs",
+   "bn": "Common Item - Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 5,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 13500,
+   "list": 1007,
+   "entry": 40,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11913,
+   "pn": "Common Item - Caliburs*Tsurugi",
+   "g": "B",
+   "a": 11821,
+   "b": 11820,
+   "an": "Common Item - Caliburs",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 5,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 13500,
+   "list": 1007,
+   "entry": 41,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11905,
+   "pn": "Common Item - Sword of Nightmare*Sword of Nightmare",
+   "g": "B",
+   "a": 11815,
+   "b": 11815,
+   "an": "Common Item - Sword of Nightmare",
+   "bn": "Common Item - Sword of Nightmare",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 5,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 13500,
+   "list": 1007,
+   "entry": 42,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11906,
+   "pn": "Common Item - Sword of Nightmare*Tsurugi",
+   "g": "B",
+   "a": 11815,
+   "b": 11820,
+   "an": "Common Item - Sword of Nightmare",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 5,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 13500,
+   "list": 1007,
+   "entry": 43,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11909,
+   "pn": "Common Item - Tsurugi*Tsurugi",
+   "g": "B",
+   "a": 11820,
+   "b": 11820,
+   "an": "Common Item - Tsurugi",
+   "bn": "Common Item - Tsurugi",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 5,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 13500,
+   "list": 1007,
+   "entry": 44,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11921,
+   "pn": "Common Item - Shamshir*Samurai Long Sword",
+   "g": "B",
+   "a": 11783,
+   "b": 11853,
+   "an": "Common Item - Shamshir",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 29,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 87600,
+   "list": 1007,
+   "entry": 45,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11923,
+   "pn": "Common Item - Katana*Samurai Long Sword",
+   "g": "B",
+   "a": 11794,
+   "b": 11853,
+   "an": "Common Item - Katana",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 29,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 87600,
+   "list": 1007,
+   "entry": 46,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11922,
+   "pn": "Common Item - Spirit Sword*Samurai Long Sword",
+   "g": "B",
+   "a": 11789,
+   "b": 11853,
+   "an": "Common Item - Spirit Sword",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 29,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 87600,
+   "list": 1007,
+   "entry": 47,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11920,
+   "pn": "Common Item - Raid Sword*Samurai Long Sword",
+   "g": "B",
+   "a": 11778,
+   "b": 11853,
+   "an": "Common Item - Raid Sword",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 29,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 87600,
+   "list": 1007,
+   "entry": 48,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11928,
+   "pn": "Common Item - Caliburs*Samurai Long Sword",
+   "g": "B",
+   "a": 11821,
+   "b": 11853,
+   "an": "Common Item - Caliburs",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 49,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 147000,
+   "list": 1007,
+   "entry": 49,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11926,
+   "pn": "Common Item - Sword of Nightmare*Samurai Long Sword",
+   "g": "B",
+   "a": 11815,
+   "b": 11853,
+   "an": "Common Item - Sword of Nightmare",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 49,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 147000,
+   "list": 1007,
+   "entry": 50,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11927,
+   "pn": "Common Item - Tsurugi*Samurai Long Sword",
+   "g": "B",
+   "a": 11820,
+   "b": 11853,
+   "an": "Common Item - Tsurugi",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 49,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 147000,
+   "list": 1007,
+   "entry": 51,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 11937,
+   "pn": "Common Item - Samurai Long Sword*Samurai Long Sword",
+   "g": "B",
+   "a": 11853,
+   "b": 11853,
+   "an": "Common Item - Samurai Long Sword",
+   "bn": "Common Item - Samurai Long Sword",
+   "mats": [
+    {
+     "id": 1875,
+     "count": 50,
+     "name": "Stone of Purity"
+    }
+   ],
+   "adena": 150000,
+   "list": 1007,
+   "entry": 52,
+   "town": "Aden",
+   "npc": "Wilbert",
+   "alts": []
+  },
+  {
+   "p": 5233,
+   "pn": "Keshanberk*Keshanberk",
+   "g": "A",
+   "a": 142,
+   "b": 142,
+   "an": "Keshanberk",
+   "bn": "Keshanberk",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 1757700,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 1,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 5705,
+   "pn": "Keshanberk*Damascus",
+   "g": "A",
+   "a": 142,
+   "b": 79,
+   "an": "Keshanberk",
+   "bn": "Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 3590100,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 2,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 5706,
+   "pn": "Damascus*Damascus",
+   "g": "A",
+   "a": 79,
+   "b": 79,
+   "an": "Sword of Damascus",
+   "bn": "Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 2079000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 3,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 8938,
+   "pn": "Damascus * Tallum Blade",
+   "g": "A",
+   "a": 80,
+   "b": 79,
+   "an": "Tallum Blade",
+   "bn": "Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 3510000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 4,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11956,
+   "pn": "Common Item - Keshanberk*Keshanberk",
+   "g": "A",
+   "a": 11916,
+   "b": 11916,
+   "an": "Common Item - Keshanberk",
+   "bn": "Common Item - Keshanberk",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 195300,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 5,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11961,
+   "pn": "Common Item - Keshanberk*Damascus",
+   "g": "A",
+   "a": 11916,
+   "b": 11930,
+   "an": "Common Item - Keshanberk",
+   "bn": "Common Item - Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 398900,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 6,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11963,
+   "pn": "Common Item - Damascus*Damascus",
+   "g": "A",
+   "a": 11930,
+   "b": 11930,
+   "an": "Common Item - Sword of Damascus",
+   "bn": "Common Item - Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 231000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 7,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11989,
+   "pn": "Common Item - Tallum Blade*Damascus",
+   "g": "A",
+   "a": 11957,
+   "b": 11930,
+   "an": "Common Item - Tallum Blade",
+   "bn": "Common Item - Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 390000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 8,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11057,
+   "pn": "Keshanberk*Keshanberk - Destruction",
+   "g": "A",
+   "a": 10930,
+   "b": 142,
+   "an": "Keshanberk - Destruction",
+   "bn": "Keshanberk",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 1757700,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 9,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11074,
+   "pn": "Keshanberk*Damascus - Destruction",
+   "g": "A",
+   "a": 10930,
+   "b": 79,
+   "an": "Keshanberk - Destruction",
+   "bn": "Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 3590100,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 10,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11074,
+   "pn": "Keshanberk*Damascus - Destruction",
+   "g": "A",
+   "a": 142,
+   "b": 10959,
+   "an": "Keshanberk",
+   "bn": "Sword of Damascus - Earth",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 3590100,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 11,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11079,
+   "pn": "Damascus*Damascus - Thunder",
+   "g": "A",
+   "a": 10959,
+   "b": 79,
+   "an": "Sword of Damascus - Earth",
+   "bn": "Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 2079000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 12,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11181,
+   "pn": "Tallum Blade*Damascus - Landslide",
+   "g": "A",
+   "a": 11058,
+   "b": 79,
+   "an": "Tallum Blade - Destruction",
+   "bn": "Sword of Damascus",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 3510000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 13,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  },
+  {
+   "p": 11181,
+   "pn": "Tallum Blade*Damascus - Landslide",
+   "g": "A",
+   "a": 80,
+   "b": 10959,
+   "an": "Tallum Blade",
+   "bn": "Sword of Damascus - Earth",
+   "mats": [
+    {
+     "id": 5126,
+     "count": 1,
+     "name": "Dualsword Craft Stamp"
+    },
+    {
+     "id": 5575,
+     "count": 3510000,
+     "name": "Ancient Adena"
+    }
+   ],
+   "adena": 0,
+   "list": 311262502,
+   "entry": 14,
+   "town": "Giran",
+   "npc": "Pushkin",
+   "alts": []
+  }
+ ]
+}

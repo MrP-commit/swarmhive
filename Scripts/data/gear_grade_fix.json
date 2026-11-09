@@ -1,0 +1,4 @@
+{
+ "_note": "GRADEFIX (swarm.js gearDb): the grade an item really has on THIS server when the datapack (gear_items.json) says otherwise. The gear planner, the stock step and the grade checks use it. Owner 2026-10-28: Frintezza's Necklace is S grade on L2Toggle.",
+ "items": { "8191": "S" }
+}

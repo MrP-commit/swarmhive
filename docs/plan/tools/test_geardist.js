@@ -6,7 +6,7 @@ const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..', '..', '..');
 const SW = fs.readFileSync(path.join(ROOT, fs.existsSync(path.join(ROOT, 'Scripts_dev', 'swarm.js')) ? 'Scripts_dev/swarm.js' : 'Scripts/swarm.js'), 'utf8');
 let fails = 0; const t = (c, m, x) => { if (c) console.log('ok   ' + m); else { fails++; console.log('FAIL ' + m + (x !== undefined ? ' — ' + JSON.stringify(x).slice(0, 300) : '')); } };
-const a = SW.indexOf('// ===== GEARDIST'), b = SW.indexOf('async function buyGearPicks(picks) {');
+const a = SW.indexOf('// ===== GEARDIST'), b = SW.indexOf('async function buyGearPicks(');   // PORT-1.10.3: buyGearPicks(picks, extra)
 t(a > 0 && b > a, 'GEARDIST block found before buyGearPicks');
 const block = SW.slice(a, b);
 // one shared event bus, one sandbox per character
@@ -64,8 +64,13 @@ Promise.resolve().then(() => {
   t(ca && ca.pay === 57 && /Release the A-grade armor seal/.test(ca.label), 'an A piece unseals for adena ("Release the A-grade armor seal")', ca);
   // the luxury shop joins the gear shop index (source check)
   t(/LUXURY-2026-10-25/.test(SW) && /giran_market\.json/.test(SW.slice(SW.indexOf('function giranShopIndex'), SW.indexOf('function giranShopIndex') + 6000)), 'giranShopIndex also reads the luxury shop offers (giran_market.json)');
-  t(/if \(G\.offer\.market\) \{/.test(SW) && /ijBuyAt\(G\.offer\.market, p\.id, 1/.test(SW), 'a luxury offer is bought with ijBuyAt (exchange)');
-  t(/const ownedRes = await gearOwnedFirst\(plan\.buys, why\);/.test(SW) && /buyGearPicks\(plan\.buys\.filter\(p => !p\.bought\)\)/.test(SW), 'the gear-up looks for owned pieces BEFORE buying, buys only the rest');
+  // PORT-1.10.3 (2026-10-25): buyGearGroup takes either offer shape (MK = offer.market object or the offer itself); gearUpgrade runs the stock step
+  // (own bag / warehouse / clan warehouse via the clan leader), then gearOwnedFirst for the distributors / other bags only, then the shopping tour
+  t(/if \(G\.offer\.market\) \{/.test(SW) && /const MK = G\.offer\.market === true \? G\.offer : G\.offer\.market;/.test(SW) && /ijBuyAt\(MK, buyId, 1/.test(SW), 'a luxury offer is bought with ijBuyAt (exchange)');
+  { const gu = SW.slice(SW.indexOf('async function gearUpgrade('), SW.indexOf('// ===== GEARSA (2026-10-25;'));
+    const iS = gu.indexOf('gearStockPlan(plan.buys, deep)'), iO = gu.indexOf('await gearOwnedFirst(plan.buys.filter(p => !p.bought), why, { noOwnWh: true, noClan: true })'), iB = gu.indexOf('await buyGearPicks(plan.buys.filter(p => !p.bought && !(p.offer && p.offer.stock))');
+    t(iS > 0 && iO > iS && iB > iO, 'the gear-up looks for owned pieces BEFORE buying (stock step, then the givers), buys only the rest', { iS, iO, iB }); }
+  t(/clan = S\.clan && Me\.Name === clanLeaderName\(\) && !d\.noClan/.test(SW), 'a giver skips the clan warehouse when the asker had it (noClan)');
   console.log(fails ? `\n${fails} FAILED` : '\nall checks passed');
   process.exit(fails ? 1 : 0);
 });

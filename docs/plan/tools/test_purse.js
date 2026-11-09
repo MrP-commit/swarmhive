@@ -152,9 +152,9 @@ check(P.purseCardRows(R0, { name: 'JadeLeader', adena: 2000000 }, mem).length ==
   // the scaled pocket money is used by the whole gear planner (no flat 300k left)
   const gp = src.slice(src.indexOf('async function gearPlanStep()'), src.indexOf('async function gearPlanStep()') + 3000);
   check(/planUpgrades\(itemCount\(57\) - gearKeep\(\)\)/.test(gp) && !/U\.keep/.test(gp), 'gearPlanStep spends adena above the level pocket money (gearKeep), not 300k');
-  const gU = src.slice(src.indexOf('async function gearUpgrade(why)'), src.indexOf('async function gearUpgrade(why)') + 3000);
-  check(/planUpgrades\(itemCount\(57\) - gearKeep\(\)\)/.test(gU) && !/U\.keep/.test(gU), 'gearUpgrade (!gearup, supply run) uses gearKeep too');
-  const pu = src.slice(src.indexOf('function planUpgrades(budget)'), src.indexOf('async function buyGearPicks'));
+  const gU = src.slice(src.indexOf('async function gearUpgrade(why)'), src.indexOf('async function gearUpgrade(why)') + 6000);   // DUALCRAFT: the gear-up preamble grew
+  check(/planUpgrades\(itemCount\(57\) - gearKeep\(\)( - \(sa && !sa\.need\.sa \? sa\.need\.adena : 0\)( - \(du \? du\.need\.adena : 0\))?, (sa \? \{ noWeapon: .+? \} : (du \? \{ noWeapon: .+? \} : )?null|Object\.assign\(\{\}, sa \? \{ noWeapon: .+? \} : du \? \{ noWeapon: .+? \} : \{\}, stockMap \? \{ stock: stockMap \} : \{\}\)))?\)/.test(gU) && !/U\.keep/.test(gU), 'gearUpgrade (!gearup, supply run) uses gearKeep too (GEARSA 2026-10-25: minus the S.A. chain set aside)');
+  const pu = src.slice(src.indexOf('function planUpgrades(budget'), src.indexOf('async function buyGearPicks'));
   check(/const keepA = \(typeof gearKeep === 'function' \? gearKeep\(\) : num\(U\.keep\)\)/.test(pu) && (pu.match(/U\.keep|upgrade\.keep/g) || []).length === 1, 'the planner\'s "needs N adena (… + K kept for supplies)" note uses the same scaled pocket money (flat value only when the function is lifted alone by a test)');
   check((src.match(/U\.keep\b/g) || []).length === 1, 'no other U.keep (flat 300k) left in swarm.js');
   check(/function gearKeep\(\)[\s\S]{0,400}purseKeepFor\(fundRules\(\), num\(Me\.Level\)\)[\s\S]{0,200}R\.on\) k = Math\.max\(k, R\.leaderKeep\)/.test(src), 'gearKeep: level pocket money; a leader with Leader pays on keeps his keep-at-least for the supplies');
