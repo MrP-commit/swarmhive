@@ -6798,7 +6798,7 @@ function recordGkMenu(npc, html) {
     // every visit, which made Hunters "unknown" again -> the endless .hunters / gatekeeper loop)
     const town = (typeof currentTownKey === 'function' ? currentTownKey() : null) || old.town || null;
     File.WriteAllText(fp, JSON.stringify({ name: String(npc.Name), title: String(npc.Title || ''), npcId: num(npc.NpcId || 0),
-      x: Math.round(npc.X), y: Math.round(npc.Y), z: Math.round(npc.Z), town, pages, updated: new Date().toISOString(), by: Me.Name }, null, 1));
+      x: Math.round(npc.X), y: Math.round(npc.Y), z: Math.round(npc.Z), town, pages, updated: new Date().toISOString(), by: 'MrP' }, null, 1));   // NONICK-2026-11-09 (owner: no character names in gk_live, was Me.Name; only shown on the dashboard)
   } catch (e) { }
 }
 
@@ -32153,7 +32153,7 @@ App.on('swarm.routesm', (event) => {
 const GKLAND = { get file() { return `${typeof SWARM_ROOT === 'string' ? SWARM_ROOT : '.'}\\Scripts\\data\\gk_landing_live.json`; }, at: 0, d: {} };   // lazy: tests that lift this block have no SWARM_ROOT
 function gkLandingAll() { if (now() - GKLAND.at < 60000) return GKLAND.d; GKLAND.at = now(); try { GKLAND.d = JSON.parse(String(File.ReadAllText(GKLAND.file)).replace(/^﻿/, '')) || {}; } catch (e) { GKLAND.d = GKLAND.d || {}; } return GKLAND.d; }
 function gkLandingLearned(s) { const k = String((s && s.desc) || ''); return k ? gkLandingAll()[k] || null : null; }
-function gkLandingLearn(s) { try { const k = String(s.desc || ''); if (!k) return; const d = Object.assign({}, gkLandingAll()); const o = d[k] || {}; d[k] = { x: Math.round(Me.X), y: Math.round(Me.Y), z: Math.round(Me.Z), n: (o.n || 0) + 1, at: new Date().toISOString(), planned: s.landing, by: Me.Name }; GKLAND.d = d; GKLAND.at = now(); File.WriteAllText(GKLAND.file, JSON.stringify(d, null, 1)); } catch (e) { logError('gk landing learn', e); } }
+function gkLandingLearn(s) { try { const k = String(s.desc || ''); if (!k) return; const d = Object.assign({}, gkLandingAll()); const o = d[k] || {}; d[k] = { x: Math.round(Me.X), y: Math.round(Me.Y), z: Math.round(Me.Z), n: (o.n || 0) + 1, at: new Date().toISOString(), planned: s.landing, by: 'MrP' }; GKLAND.d = d; GKLAND.at = now(); File.WriteAllText(GKLAND.file, JSON.stringify(d, null, 1)); } catch (e) { logError('gk landing learn', e); } }   // NONICK-2026-11-09: by 'MrP' (was Me.Name)
 /** one step of an atlas route -> { ok, why, blocked, arrived } (the old loop body; the state machine around it is navAtlasRun) */
 async function navAtlasExec(r, s, steps, i, o, abort) {
   if (s.do === 'town') {
